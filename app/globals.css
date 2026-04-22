@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  /* Define custom font variables */
+  --font-poppins: "Poppins", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  
+  /* Default font family */
+  --font-family-sans: var(--font-poppins), var(--font-inter), system-ui, sans-serif;
+}
+
+/* Custom utility classes */
+@utility font-poppins {
+  font-family: var(--font-poppins);
+}
+
+@utility font-inter {
+  font-family: var(--font-inter);
+}
+
+/* Base styles */
+@layer base {
+  body {
+    font-family: var(--font-family-sans);
+    overflow: hidden;
+  }
+}
+
+/* Hide default cursor when canvas is active */
+canvas:active {
+  cursor: crosshair;
+}
+
+/* Custom scrollbar for any scrollable elements */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1000%);
+  }
+}
+
+.animate-scanline {
+  animation: scanline 3s linear infinite;
+}
