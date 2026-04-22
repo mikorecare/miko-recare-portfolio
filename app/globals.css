@@ -9,6 +9,45 @@
   --font-family-sans: var(--font-poppins), var(--font-inter), system-ui, sans-serif;
 }
 
+@font-face {
+  font-family: 'Reactor7';
+  src: url('/fonts/Reactor7.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-reactor7 {
+  font-family: 'Reactor7', 'Courier New', monospace;
+  letter-spacing: 2px;
+}
+
+/* Make Reactor7 larger by default */
+.font-reactor7.text-base {
+  font-size: 1.25rem;  /* 20px instead of 16px */
+  line-height: 1.75rem;
+}
+
+.font-reactor7.text-lg {
+  font-size: 1.5rem;   /* 24px */
+  line-height: 2rem;
+}
+
+.font-reactor7.text-xl {
+  font-size: 1.875rem; /* 30px */
+  line-height: 2.25rem;
+}
+
+.font-reactor7.text-2xl {
+  font-size: 2.25rem;  /* 36px */
+  line-height: 2.5rem;
+}
+
+.font-reactor7.text-3xl {
+  font-size: 3rem;     /* 48px */
+  line-height: 1;
+}
+
 /* Custom utility classes */
 @utility font-poppins {
   font-family: var(--font-poppins);
@@ -62,4 +101,24 @@ canvas:active {
 
 .animate-scanline {
   animation: scanline 3s linear infinite;
+}
+
+canvas {
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
 }

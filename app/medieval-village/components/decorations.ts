@@ -10,6 +10,13 @@ export interface DecorationInfo {
     type: string;
 }
 
+let kulaongTexture: THREE.Texture | null = null;
+
+if (typeof window !== 'undefined') {
+    const textureLoader = new THREE.TextureLoader();
+    kulaongTexture = textureLoader.load('/kulaong.png');
+}
+
 export function loadDecorations(scene: THREE.Scene): DecorationInfo[] {
     const decorationInfos: DecorationInfo[] = [];
     const loader = new GLTFLoader();
@@ -23,7 +30,31 @@ export function loadDecorations(scene: THREE.Scene): DecorationInfo[] {
                 model.scale.set(finalScale, finalScale, finalScale);
                 if (decoration.rotation) model.rotation.y = decoration.rotation;
                 model.castShadow = true;
+
+                // If this is a Wooden Sign, add the texture as a separate plane on top of the board
+                if (decoration.path === 'Wooden Sign.glb' && kulaongTexture) {
+                    // Create a new plane with the texture
+                    const texturePlane = new THREE.Mesh(
+                        new THREE.PlaneGeometry(1.2, 0.6),
+                        new THREE.MeshStandardMaterial({
+                            map: kulaongTexture,
+                            color: 0xffffff,
+                            side: THREE.DoubleSide,
+                            transparent: true
+                        })
+                    );
+                    // Adjust these values to position the texture on the board
+                    // y: vertical position (increase to move up, decrease to move down)
+                    // z: depth (positive moves forward/closer to camera)
+                    texturePlane.position.set(0, 1.65, 0.05);
+                    texturePlane.scale.set(2, 2, 1);
+                    model.add(texturePlane);
+
+                    console.log('Added texture plane to sign at', decoration.x, decoration.z);
+                }
+
                 scene.add(model);
+                console.log(`Loaded: ${decoration.path} at (${decoration.x}, ${decoration.z})`);
 
                 decorationInfos.push({
                     x: decoration.x,

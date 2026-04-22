@@ -8,7 +8,7 @@ export const CONFIG = {
     },
     movement: {
         speed: 5,
-        playerRadius: 0.4,
+        playerRadius: 0.15,
     },
     ground: {
         size: 400,  // Increased to cover larger area

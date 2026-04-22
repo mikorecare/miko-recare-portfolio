@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { loadBuildings } from "./components/buildings";
 import { loadDecorations } from "./components/decorations";
+import { loadVillage2 } from "./components/village2";
+import { loadMonsters, updateMonsterAnimations } from "./components/monsters";
 import { createGround } from "./components/ground";
 import { setupLighting } from "./components/lighting";
 import { createPath } from "./components/path";
@@ -13,22 +15,22 @@ import {
   createRenderer,
 } from "./components/scene-setup";
 import { createTrees } from "./components/trees";
-import { createCrosshair, createUI } from "./components/ui";
-import { addDockDetails } from "./components/dock-extensions";
+import { createCrosshair } from "./components/ui";
 import { createWater } from "./components/water";
 import { createPortArea } from "./components/port-area";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import {
-  VILLAGE2_BUILDINGS,
-  VILLAGE2_DECORATIONS,
-  VILLAGE2_FENCE_POSITIONS,
-} from "./data/village2";
 import MiniMap from "./components/mini-map";
+import DialogBox from "./ui/dialog-box";
 
 export default function MedievalVillage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPointerLock, setIsPointerLock] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [selectedMonster, setSelectedMonster] = useState<{
+    name: string;
+    dialog: string;
+  } | null>(null);
+
+  let animationTime = 0;
 
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
@@ -37,6 +39,7 @@ export default function MedievalVillage() {
     { x: number; z: number; radius: number }[]
   >([]);
   const animationRef = useRef<number | null>(null);
+  const monstersRef = useRef<THREE.Object3D[]>([]);
 
   const keyStateRef = useRef({ w: false, a: false, s: false, d: false });
   const mouseStateRef = useRef({ x: 0, y: 0 });
@@ -46,7 +49,7 @@ export default function MedievalVillage() {
   const minimapRef = useRef<{
     updatePosition: (x: number, z: number, rotation: number) => void;
   } | null>(null);
-  const [playerPosition, setPlayerPosition] = useState({ x: 0, z: 0 });
+
   const [treesData, setTreesData] = useState<{ x: number; z: number }[]>([]);
   const [buildingsList, setBuildingsList] = useState<
     { x: number; z: number; radius: number }[]
@@ -82,7 +85,7 @@ export default function MedievalVillage() {
       const dx = newX - obj.x;
       const dz = newZ - obj.z;
       const distance = Math.sqrt(dx * dx + dz * dz);
-      if (distance < obj.radius + 0.4) return true;
+      if (distance < obj.radius + 0.15) return true;
     }
     return false;
   };
@@ -138,85 +141,44 @@ export default function MedievalVillage() {
     }
   };
 
-  const loadVillage2Buildings = () => {
-    const loader = new GLTFLoader();
-    VILLAGE2_BUILDINGS.forEach((building) => {
-      loader.load(
-        `/medieval-village-2/${building.path}`,
-        (gltf) => {
-          const model = gltf.scene;
-          model.position.set(building.x, building.yOffset || -0.2, building.z);
-          model.scale.set(building.scale *2, building.scale * 2, building.scale *2);
-          if (building.rotation) model.rotation.y = building.rotation;
-          model.castShadow = true;
-          sceneRef.current?.add(model);
-          if (building.collisionRadius) {
-            collisionObjectsRef.current.push({
-              x: building.x,
-              z: building.z,
-              radius: building.collisionRadius,
-            });
-          }
-        },
-        undefined,
-        (error) => console.error(`Failed to load ${building.path}:`, error),
-      );
-    });
-  };
+  const handleMonsterClick = () => {
+    if (!cameraRef.current || !sceneRef.current) return;
 
-  const loadVillage2Decorations = () => {
-    const loader = new GLTFLoader();
-    VILLAGE2_DECORATIONS.forEach((decoration) => {
-      loader.load(
-        `/medieval-village-2/${decoration.path}`,
-        (gltf) => {
-          const model = gltf.scene;
-          model.position.set(
-            decoration.x,
-            decoration.yOffset || -0.2,
-            decoration.z,
-          );
-          model.scale.set(decoration.scale, decoration.scale, decoration.scale);
-          if (decoration.rotation) model.rotation.y = decoration.rotation;
-          model.castShadow = true;
-          sceneRef.current?.add(model);
-        },
-        undefined,
-        (error) => console.error(`Failed to load ${decoration.path}:`, error),
-      );
-    });
-  };
+    const raycaster = new THREE.Raycaster();
+    const direction = new THREE.Vector3(0, 0, -1);
+    direction.applyQuaternion(cameraRef.current.quaternion);
+    raycaster.set(cameraRef.current.position, direction);
 
-  const createConnectingPath = () => {
-    const pathMaterial = new THREE.MeshStandardMaterial({
-      color: 0x8b7355,
-      roughness: 0.8,
+    // Set camera for sprite raycasting
+    raycaster.camera = cameraRef.current;
+
+    // Collect all clickable monster objects
+    const clickableObjects: THREE.Object3D[] = [];
+    sceneRef.current.traverse((obj) => {
+      if (
+        obj.userData?.isMonster === true ||
+        obj.parent?.userData?.isMonster === true
+      ) {
+        clickableObjects.push(obj);
+      }
     });
 
-    for (let t = 0; t <= 1; t += 0.03) {
-      const x = -100 + t * 100;
-      const z = 30 - t * 30;
-      const pathPiece = new THREE.Mesh(
-        new THREE.PlaneGeometry(3, 3),
-        pathMaterial,
-      );
-      pathPiece.rotation.x = -Math.PI / 2;
-      pathPiece.position.set(x, -0.15, z);
-      pathPiece.receiveShadow = true;
-      sceneRef.current?.add(pathPiece);
-    }
+    const intersects = raycaster.intersectObjects(clickableObjects, true);
 
-    for (let t = 0; t <= 1; t += 0.05) {
-      const x = t * 80;
-      const z = t * 60;
-      const pathPiece = new THREE.Mesh(
-        new THREE.PlaneGeometry(3, 3),
-        pathMaterial,
-      );
-      pathPiece.rotation.x = -Math.PI / 2;
-      pathPiece.position.set(x, -0.15, z);
-      pathPiece.receiveShadow = true;
-      sceneRef.current?.add(pathPiece);
+    if (intersects.length > 0) {
+      // Find the monster data by traversing up the parent chain
+      let hitObject = intersects[0].object;
+      let monsterData = hitObject.userData?.monsterData;
+
+      while (!monsterData && hitObject.parent) {
+        hitObject = hitObject.parent;
+        monsterData = hitObject.userData?.monsterData;
+      }
+
+      if (monsterData) {
+        console.log(`Clicked on monster: ${monsterData.name}`);
+        setSelectedMonster(monsterData);
+      }
     }
   };
 
@@ -233,12 +195,14 @@ export default function MedievalVillage() {
 
     containerRef.current.appendChild(renderer.domElement);
 
+    // Setup basic environment
     setupLighting(scene);
     createGround(scene);
     createWater(scene);
     createPortArea(scene);
     createPath(scene);
 
+    // Load Village 1 assets
     const buildingData = loadBuildings(scene, collisionObjectsRef.current);
     setBuildingsList(
       buildingData.map((b) => ({ x: b.x, z: b.z, radius: b.radius })),
@@ -247,10 +211,18 @@ export default function MedievalVillage() {
     const decorationData = loadDecorations(scene);
     setDecorationsList(decorationData.map((d) => ({ x: d.x, z: d.z })));
 
-    loadVillage2Buildings();
-    loadVillage2Decorations();
-    createConnectingPath();
+    // Load Village 2 assets (refactored)
+    loadVillage2(scene, collisionObjectsRef.current);
 
+    // Load monsters - PLACE THIS HERE
+    const loadedMonsters = loadMonsters(
+      scene,
+      collisionObjectsRef.current,
+      (monster) => setSelectedMonster(monster),
+    );
+    monstersRef.current = loadedMonsters;
+
+    // Load trees
     const treePositions = createTrees(scene, collisionObjectsRef.current);
     setTreesData(treePositions);
   };
@@ -275,6 +247,13 @@ export default function MedievalVillage() {
           break;
         case "KeyD":
           keyStateRef.current.d = true;
+          break;
+        case "Space":
+          e.preventDefault();
+          if (selectedMonster) {
+            const event = new CustomEvent("dialogNext");
+            window.dispatchEvent(event);
+          }
           break;
       }
     };
@@ -318,6 +297,7 @@ export default function MedievalVillage() {
     const handleClick = () => {
       rendererRef.current?.domElement.requestPointerLock();
       setIsPointerLock(true);
+      handleMonsterClick();
     };
 
     const handlePointerLockChange = () => {
@@ -334,6 +314,17 @@ export default function MedievalVillage() {
 
     const animate = () => {
       updateMovement();
+
+      updateMovement();
+
+      // Update animation time
+      animationTime += 0.016;
+
+      const delta = Math.min(
+        0.033,
+        (performance.now() - lastTimeRef.current) / 1000,
+      );
+      updateMonsterAnimations(delta, animationTime);
 
       if (cameraRef.current && minimapRef.current) {
         minimapRef.current.updatePosition(
@@ -398,7 +389,6 @@ export default function MedievalVillage() {
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-black">
-      {/* Game Canvas - takes full width */}
       <div className="flex-1 relative">
         <div
           ref={containerRef}
@@ -415,7 +405,6 @@ export default function MedievalVillage() {
         </div>
       </div>
 
-      {/* Instructions Panel - fixed width on the right */}
       <div className="w-80 bg-black/80 backdrop-blur-md border-l border-white/20 p-5 flex flex-col overflow-y-auto">
         <div className="mb-6">
           <h2 className="font-poppins text-xl font-bold text-white mb-2">
@@ -438,6 +427,12 @@ export default function MedievalVillage() {
               <span>Lock / Unlock Cursor</span>
               <kbd className="px-3 py-1 bg-white/10 rounded text-xs">
                 Click / ESC
+              </kbd>
+            </div>
+            <div className="flex justify-between items-center">
+              <span>Talk to Monsters</span>
+              <kbd className="px-3 py-1 bg-white/10 rounded text-xs">
+                Click on them
               </kbd>
             </div>
           </div>
@@ -480,6 +475,10 @@ export default function MedievalVillage() {
               <div className="w-3 h-3 bg-ff4444" />
               <span>Your Position</span>
             </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-9b59b6 rounded-full" />
+              <span>Monsters (Talk to them!)</span>
+            </div>
           </div>
         </div>
 
@@ -489,6 +488,11 @@ export default function MedievalVillage() {
           </p>
         </div>
       </div>
+
+      <DialogBox
+        monster={selectedMonster}
+        onClose={() => setSelectedMonster(null)}
+      />
     </div>
   );
 }
