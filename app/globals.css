@@ -9,6 +9,7 @@
   --font-family-sans: var(--font-poppins), var(--font-inter), system-ui, sans-serif;
 }
 
+/* Reactor7 Font */
 @font-face {
   font-family: 'Reactor7';
   src: url('/fonts/Reactor7.ttf') format('truetype');
@@ -17,8 +18,24 @@
   font-display: swap;
 }
 
+/* Masonic Lodge Font */
+@font-face {
+  font-family: 'MasonicLodge';
+  src: url('/fonts/MasonicLodge/MasonicLodge.woff2') format('woff2'),
+       url('/fonts/MasonicLodge/MasonicLodge.woff') format('woff'),
+       url('/fonts/MasonicLodge/MasonicLodge.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .font-reactor7 {
   font-family: 'Reactor7', 'Courier New', monospace;
+  letter-spacing: 2px;
+}
+
+.font-masonic {
+  font-family: 'MasonicLodge', 'Courier New', monospace;
   letter-spacing: 2px;
 }
 
@@ -61,8 +78,13 @@
 @layer base {
   body {
     font-family: var(--font-family-sans);
-    overflow: hidden;
+    overflow-x: hidden;
   }
+}
+
+/* Allow scrolling on portfolio page */
+body:has(main:not(.no-scroll)) {
+  overflow-y: auto;
 }
 
 /* Hide default cursor when canvas is active */
@@ -70,24 +92,26 @@ canvas:active {
   cursor: crosshair;
 }
 
-/* Custom scrollbar for any scrollable elements */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for the whole page */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
+  background: #1a1a2e;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.3);
+  background: #b8860b;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.5);
+  background: #daa520;
 }
 
 @keyframes scanline {
@@ -121,4 +145,49 @@ canvas {
 
 .animate-slide-up {
   animation: slide-up 0.3s ease-out;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-15px); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(25px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 6s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float-fast 4s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
 }

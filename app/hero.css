@@ -1,0 +1,96 @@
+@keyframes float-up {
+    0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    }
+    100% {
+    opacity: 0;
+    transform: translateY(-100px) scale(0);
+    }
+}
+
+@keyframes sword-swing {
+    0% {
+    transform: rotate(-90deg) scaleX(0);
+    opacity: 0;
+    }
+    50% {
+    transform: rotate(0deg) scaleX(1);
+    opacity: 1;
+    }
+    100% {
+    transform: rotate(90deg) scaleX(0);
+    opacity: 0;
+    }
+}
+
+@keyframes float {
+    0%,
+    100% {
+    transform: translateY(0px);
+    }
+    50% {
+    transform: translateY(-20px);
+    }
+}
+
+@keyframes slash {
+    0% {
+    opacity: 0;
+    transform: translate(-20px, -50%) rotate(-30deg);
+    }
+    50% {
+    opacity: 1;
+    transform: translate(0, -50%) rotate(0deg);
+    }
+    100% {
+    opacity: 0;
+    transform: translate(20px, -50%) rotate(30deg);
+    }
+}
+
+@keyframes swing {
+    0%,
+    100% {
+    transform: translateY(-50%) rotate(-15deg);
+    }
+    50% {
+    transform: translateY(-50%) rotate(15deg);
+    }
+}
+
+.animate-sword-swing {
+    animation: sword-swing 0.5s ease-out forwards;
+    transform-origin: top;
+}
+
+.animate-sword-swing-delayed {
+    animation: sword-swing 0.5s ease-out 0.1s forwards;
+    transform-origin: top;
+    opacity: 0;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-slash {
+    animation: slash 0.4s ease-out forwards;
+}
+
+.animate-swing {
+    animation: swing 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-5s {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-progress-5s {
+  animation: progress-5s 5s linear infinite;
+}
