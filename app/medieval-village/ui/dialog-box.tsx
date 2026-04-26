@@ -36,6 +36,7 @@ export default function DialogBox({ monster, onClose }: DialogBoxProps) {
 
   const [pages, setPages] = useState<string[]>([]);
 
+  // Reset when monster changes
   useEffect(() => {
     if (monster) {
       setVisible(true);
@@ -69,13 +70,16 @@ export default function DialogBox({ monster, onClose }: DialogBoxProps) {
 
   const handleNext = () => {
     if (isTyping) {
+      // Skip typing animation
       setIsTyping(false);
       setDisplayText(pages[currentPage]);
     } else if (currentPage < pages.length - 1) {
+      // Next page
       setCurrentPage(currentPage + 1);
       setIsTyping(true);
       setDisplayText("");
     } else {
+      // Last page - close dialog
       setVisible(false);
       onClose();
     }
@@ -89,11 +93,26 @@ export default function DialogBox({ monster, onClose }: DialogBoxProps) {
     onClose();
   };
 
+  // Handle Space key press only (no ESC)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!visible) return;
+
+      if (e.code === "Space" || e.code === "Enter") {
+        e.preventDefault();
+        handleNext();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [visible, isTyping, currentPage, pages]);
+
   if (!monster || !visible) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-      {/* Dark overlay background */}
+      {/* Dark overlay background - click to close */}
       <div
         className="absolute inset-0 bg-black/50 pointer-events-auto"
         onClick={handleClose}
@@ -120,7 +139,7 @@ export default function DialogBox({ monster, onClose }: DialogBoxProps) {
 
           {/* Main Dialog Box */}
           <div className="bg-black/90 backdrop-blur-md rounded-2xl p-8 border-2 border-cyan-500 shadow-2xl">
-            {/* Dialog Text - MUCH LARGER FONT */}
+            {/* Dialog Text */}
             <div className="min-h-[200px]">
               <p className="font-reactor7 text-cyan-100 text-2xl leading-relaxed tracking-wide">
                 {displayText}
@@ -145,7 +164,7 @@ export default function DialogBox({ monster, onClose }: DialogBoxProps) {
                 onClick={handleClose}
                 className="font-reactor7 text-gray-400 hover:text-white text-lg transition-colors px-4 py-2 rounded-lg hover:bg-white/10 tracking-wider"
               >
-                [CLOSE]
+                [PRESS SPACE OR ENTER TO INTERACT]
               </button>
 
               <button
@@ -177,7 +196,7 @@ export default function DialogBox({ monster, onClose }: DialogBoxProps) {
 
         {/* Instruction Hint */}
         <div className="text-center mt-4 text-gray-400 font-reactor7 text-base tracking-wider">
-          [PRESS SPACE OR CLICK BUTTON TO CONTINUE]
+          [PRESS SPACE OR ENTER TO CONTINUE] | [CLICK BACKGROUND TO CLOSE]
         </div>
       </div>
     </div>

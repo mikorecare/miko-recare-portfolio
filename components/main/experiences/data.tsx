@@ -1,7 +1,7 @@
 export const experiences = [
   {
     title: "Highly Succeed Inc.",
-    role: "Full-Stack Developer (Frontend Focused)",
+    role: "Full-Stack Developer",
     period: "Apr 2025 - Apr 2026 · 1 yr 1 mo",
     location: "Mandaluyong, National Capital Region, Philippines · Remote",
     type: "Full-time",

@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 interface MedievalPortraitProps {
   src: string;
   alt: string;
-  size?: "sm" | "md" | "lg" | "xl" | "custom";
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "custom";
   customSize?: { width: number; height: number };
   borderColor?: "amber" | "gold" | "silver" | "copper";
   glow?: boolean;
@@ -16,10 +16,11 @@ interface MedievalPortraitProps {
 }
 
 const sizeClasses = {
-  sm: "w-32 h-32 md:w-40 md:h-40",
-  md: "w-40 h-40 md:w-48 md:h-48",
-  lg: "w-48 h-48 md:w-56 md:h-56",
-  xl: "w-56 h-56 md:w-64 md:h-64",
+  xs: "w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24",
+  sm: "w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32",
+  md: "w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40",
+  lg: "w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48",
+  xl: "w-44 h-44 sm:w-52 sm:h-52 md:w-56 md:h-56",
   custom: "",
 };
 
@@ -57,7 +58,7 @@ const borderColors = {
 export default function MedievalPortrait({
   src,
   alt,
-  size = "lg",
+  size = "md",
   customSize,
   borderColor = "amber",
   glow = false,
@@ -72,158 +73,148 @@ export default function MedievalPortrait({
       ? { width: customSize.width, height: customSize.height }
       : {};
 
+  // Responsive corner sizes
+  const cornerSize = "w-6 h-6 sm:w-8 sm:h-8";
+  const dotSize = "w-1 h-1 sm:w-1.5 sm:h-1.5";
+  const sideDiamondSize = "w-3 h-3 sm:w-4 sm:h-4";
+
   return (
     <div className={`relative ${sizeClass} ${className}`} style={customStyle}>
       {/* Medieval Ornamental Border Frame */}
-      <div className="absolute -inset-3 rounded-xl pointer-events-none z-20">
+      <div className="absolute -inset-1 sm:-inset-3 rounded-lg sm:rounded-xl pointer-events-none z-20">
         {/* Outer decorative border */}
         <div
-          className={`absolute inset-0 rounded-xl border-4 ${colors.main} shadow-lg`}
+          className={`absolute inset-0 rounded-lg sm:rounded-xl border-2 sm:border-4 ${colors.main} shadow-md sm:shadow-lg`}
         />
 
-        {/* Middle ornamental border */}
+        {/* Middle ornamental border - hidden on mobile */}
         <div
-          className={`absolute inset-1 rounded-xl border-2 ${colors.secondary}`}
+          className={`absolute inset-1 rounded-md sm:rounded-xl border sm:border-2 ${colors.secondary} hidden sm:block`}
         />
 
-        {/* Inner border */}
-        <div className={`absolute inset-2 rounded-xl border ${colors.inner}`} />
+        {/* Inner border - hidden on mobile */}
+        <div className={`absolute inset-2 rounded sm:rounded-xl border ${colors.inner} hidden sm:block`} />
 
         {/* Corner ornaments - Top Left */}
-        <div className="absolute -top-2 -left-2 w-10 h-10">
+        <div className={`absolute -top-1 sm:-top-2 -left-1 sm:-left-2 ${cornerSize}`}>
           <div
-            className={`absolute inset-0 border-t-4 border-l-4 ${colors.main} rounded-tl-xl`}
+            className={`absolute inset-0 border-t-2 sm:border-t-4 border-l-2 sm:border-l-4 ${colors.main} rounded-tl-md sm:rounded-tl-xl`}
           />
           <div
-            className={`absolute top-1 left-1 w-2 h-2 ${colors.accent} rounded-full`}
+            className={`absolute top-0.5 sm:top-1 left-0.5 sm:left-1 ${dotSize} ${colors.accent} rounded-full`}
           />
           <div
-            className={`absolute top-2 left-2 w-1 h-1 ${colors.accentLight} rounded-full`}
+            className={`absolute top-1 sm:top-2 left-1 sm:left-2 w-0.5 h-0.5 sm:w-1 sm:h-1 ${colors.accentLight} rounded-full`}
           />
         </div>
 
         {/* Corner ornaments - Top Right */}
-        <div className="absolute -top-2 -right-2 w-10 h-10">
+        <div className={`absolute -top-1 sm:-top-2 -right-1 sm:-right-2 ${cornerSize}`}>
           <div
-            className={`absolute inset-0 border-t-4 border-r-4 ${colors.main} rounded-tr-xl`}
+            className={`absolute inset-0 border-t-2 sm:border-t-4 border-r-2 sm:border-r-4 ${colors.main} rounded-tr-md sm:rounded-tr-xl`}
           />
           <div
-            className={`absolute top-1 right-1 w-2 h-2 ${colors.accent} rounded-full`}
+            className={`absolute top-0.5 sm:top-1 right-0.5 sm:right-1 ${dotSize} ${colors.accent} rounded-full`}
           />
           <div
-            className={`absolute top-2 right-2 w-1 h-1 ${colors.accentLight} rounded-full`}
+            className={`absolute top-1 sm:top-2 right-1 sm:right-2 w-0.5 h-0.5 sm:w-1 sm:h-1 ${colors.accentLight} rounded-full`}
           />
         </div>
 
         {/* Corner ornaments - Bottom Left */}
-        <div className="absolute -bottom-2 -left-2 w-10 h-10">
+        <div className={`absolute -bottom-1 sm:-bottom-2 -left-1 sm:-left-2 ${cornerSize}`}>
           <div
-            className={`absolute inset-0 border-b-4 border-l-4 ${colors.main} rounded-bl-xl`}
+            className={`absolute inset-0 border-b-2 sm:border-b-4 border-l-2 sm:border-l-4 ${colors.main} rounded-bl-md sm:rounded-bl-xl`}
           />
           <div
-            className={`absolute bottom-1 left-1 w-2 h-2 ${colors.accent} rounded-full`}
+            className={`absolute bottom-0.5 sm:bottom-1 left-0.5 sm:left-1 ${dotSize} ${colors.accent} rounded-full`}
           />
           <div
-            className={`absolute bottom-2 left-2 w-1 h-1 ${colors.accentLight} rounded-full`}
+            className={`absolute bottom-1 sm:bottom-2 left-1 sm:left-2 w-0.5 h-0.5 sm:w-1 sm:h-1 ${colors.accentLight} rounded-full`}
           />
         </div>
 
         {/* Corner ornaments - Bottom Right */}
-        <div className="absolute -bottom-2 -right-2 w-10 h-10">
+        <div className={`absolute -bottom-1 sm:-bottom-2 -right-1 sm:-right-2 ${cornerSize}`}>
           <div
-            className={`absolute inset-0 border-b-4 border-r-4 ${colors.main} rounded-br-xl`}
+            className={`absolute inset-0 border-b-2 sm:border-b-4 border-r-2 sm:border-r-4 ${colors.main} rounded-br-md sm:rounded-br-xl`}
           />
           <div
-            className={`absolute bottom-1 right-1 w-2 h-2 ${colors.accent} rounded-full`}
+            className={`absolute bottom-0.5 sm:bottom-1 right-0.5 sm:right-1 ${dotSize} ${colors.accent} rounded-full`}
           />
           <div
-            className={`absolute bottom-2 right-2 w-1 h-1 ${colors.accentLight} rounded-full`}
+            className={`absolute bottom-1 sm:bottom-2 right-1 sm:right-2 w-0.5 h-0.5 sm:w-1 sm:h-1 ${colors.accentLight} rounded-full`}
           />
         </div>
 
-        {/* Decorative side diamonds */}
+        {/* Decorative side diamonds - hidden on mobile */}
         <div
-          className={`absolute top-1/2 -left-3 w-5 h-5 -translate-y-1/2 rotate-45 ${colors.main} bg-black/40 border ${colors.inner}`}
+          className={`absolute top-1/2 -left-2 sm:-left-3 ${sideDiamondSize} -translate-y-1/2 rotate-45 ${colors.main} bg-black/40 border ${colors.inner} hidden sm:block`}
         />
         <div
-          className={`absolute top-1/2 -right-3 w-5 h-5 -translate-y-1/2 rotate-45 ${colors.main} bg-black/40 border ${colors.inner}`}
+          className={`absolute top-1/2 -right-2 sm:-right-3 ${sideDiamondSize} -translate-y-1/2 rotate-45 ${colors.main} bg-black/40 border ${colors.inner} hidden sm:block`}
         />
         <div
-          className={`absolute left-1/2 -top-3 w-5 h-5 -translate-x-1/2 rotate-45 ${colors.main} bg-black/40 border ${colors.inner}`}
+          className={`absolute left-1/2 -top-2 sm:-top-3 ${sideDiamondSize} -translate-x-1/2 rotate-45 ${colors.main} bg-black/40 border ${colors.inner} hidden sm:block`}
         />
         <div
-          className={`absolute left-1/2 -bottom-3 w-5 h-5 -translate-x-1/2 rotate-45 ${colors.main} bg-black/40 border ${colors.inner}`}
+          className={`absolute left-1/2 -bottom-2 sm:-bottom-3 ${sideDiamondSize} -translate-x-1/2 rotate-45 ${colors.main} bg-black/40 border ${colors.inner} hidden sm:block`}
         />
 
-        {/* Decorative dots on edges */}
+        {/* Decorative dots on edges - hidden on mobile */}
         <div
-          className={`absolute top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 ${colors.accentLight} rounded-full`}
+          className={`absolute top-0.5 sm:top-1 left-1/2 -translate-x-1/2 ${dotSize} ${colors.accentLight} rounded-full hidden sm:block`}
         />
         <div
-          className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 ${colors.accentLight} rounded-full`}
+          className={`absolute bottom-0.5 sm:bottom-1 left-1/2 -translate-x-1/2 ${dotSize} ${colors.accentLight} rounded-full hidden sm:block`}
         />
         <div
-          className={`absolute left-1 top-1/2 -translate-y-1/2 w-1.5 h-1.5 ${colors.accentLight} rounded-full`}
+          className={`absolute left-0.5 sm:left-1 top-1/2 -translate-y-1/2 ${dotSize} ${colors.accentLight} rounded-full hidden sm:block`}
         />
         <div
-          className={`absolute right-1 top-1/2 -translate-y-1/2 w-1.5 h-1.5 ${colors.accentLight} rounded-full`}
+          className={`absolute right-0.5 sm:right-1 top-1/2 -translate-y-1/2 ${dotSize} ${colors.accentLight} rounded-full hidden sm:block`}
         />
       </div>
 
       {/* Main Image Container */}
       <div
-        className={`absolute inset-0 rounded-xl overflow-hidden shadow-2xl transition-all duration-300 hover:scale-105 bg-stone-800 ${
+        className={`absolute inset-0 rounded-lg sm:rounded-xl overflow-hidden shadow-md sm:shadow-2xl transition-all duration-300 hover:scale-105 bg-stone-800 ${
           glow ? "shadow-amber-500/50" : ""
         }`}
       >
-        {/* Meadow & Sky Background */}
+        {/* Meadow & Sky Background - simplified on mobile */}
         {meadow && (
           <div className="absolute inset-0">
             {/* Sky gradient */}
             <div className="absolute inset-0 bg-gradient-to-b from-sky-400 via-sky-300 to-emerald-500" />
 
-            {/* Clouds */}
+            {/* Clouds - fewer on mobile */}
             <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute top-5 left-0 w-32 h-16 bg-white/40 rounded-full blur-md animate-float-slow" />
-              <div className="absolute top-12 right-10 w-24 h-12 bg-white/30 rounded-full blur-md animate-float-medium" />
-              <div className="absolute top-20 left-20 w-40 h-20 bg-white/20 rounded-full blur-lg animate-float-fast" />
-              <div className="absolute top-8 right-32 w-28 h-14 bg-white/35 rounded-full blur-md animate-float-slow" />
+              <div className="absolute top-2 sm:top-5 left-0 w-16 sm:w-32 h-8 sm:h-16 bg-white/40 rounded-full blur-sm sm:blur-md animate-float-slow hidden sm:block" />
+              <div className="absolute top-3 sm:top-12 right-2 sm:right-10 w-12 sm:w-24 h-6 sm:h-12 bg-white/30 rounded-full blur-sm sm:blur-md animate-float-medium" />
+              <div className="absolute top-4 sm:top-20 left-10 sm:left-20 w-20 sm:w-40 h-10 sm:h-20 bg-white/20 rounded-full blur-md sm:blur-lg animate-float-fast hidden sm:block" />
             </div>
 
-            {/* Sun glow */}
-            <div className="absolute top-5 right-5 w-16 h-16 bg-yellow-300/30 rounded-full blur-xl animate-pulse-glow" />
+            {/* Sun glow - smaller on mobile */}
+            <div className="absolute top-2 sm:top-5 right-2 sm:right-5 w-8 sm:w-16 h-8 sm:h-16 bg-yellow-300/30 rounded-full blur-md sm:blur-xl animate-pulse-glow" />
 
             {/* Rolling hills background */}
-            <div className="absolute bottom-0 left-0 right-0 h-1/2">
-              <div className="absolute bottom-0 left-0 w-full h-20 bg-emerald-600 rounded-t-[100px] shadow-inner" />
-              <div className="absolute bottom-0 left-0 w-3/4 h-16 bg-emerald-500 rounded-r-[100px] -ml-10" />
-              <div className="absolute bottom-0 right-0 w-2/3 h-14 bg-green-600 rounded-l-[100px] -mr-10" />
+            <div className="absolute bottom-0 left-0 right-0 h-1/3 sm:h-1/2">
+              <div className="absolute bottom-0 left-0 w-full h-10 sm:h-20 bg-emerald-600 rounded-t-[50px] sm:rounded-t-[100px] shadow-inner" />
+              <div className="absolute bottom-0 left-0 w-3/4 h-8 sm:h-16 bg-emerald-500 rounded-r-[50px] sm:rounded-r-[100px] -ml-5 sm:-ml-10" />
+              <div className="absolute bottom-0 right-0 w-2/3 h-7 sm:h-14 bg-green-600 rounded-l-[50px] sm:rounded-l-[100px] -mr-5 sm:-mr-10" />
             </div>
 
-            {/* Grass texture overlay */}
-            <div
-              className="absolute inset-0 opacity-20 pointer-events-none"
-              style={{
-                backgroundImage: `repeating-linear-gradient(
-                     0deg,
-                     transparent,
-                     transparent 3px,
-                     rgba(0,0,0,0.05) 3px,
-                     rgba(0,0,0,0.05) 4px
-                   )`,
-              }}
-            />
-
-            {/* Small grass blades at bottom */}
-            <div className="absolute bottom-0 left-0 right-0 h-8 overflow-hidden">
-              {[...Array(15)].map((_, i) => (
+            {/* Grass blades - fewer on mobile */}
+            <div className="absolute bottom-0 left-0 right-0 h-4 sm:h-8 overflow-hidden">
+              {[...Array(8)].map((_, i) => (
                 <div
                   key={i}
-                  className="absolute bottom-0 w-1 bg-emerald-400/40 rounded-full"
+                  className="absolute bottom-0 w-0.5 sm:w-1 bg-emerald-400/40 rounded-full"
                   style={{
-                    left: `${i * 7}%`,
-                    height: `${8 + Math.random() * 12}px`,
-                    width: "2px",
+                    left: `${i * 12}%`,
+                    height: `${4 + Math.random() * 6}px`,
+                    width: "1px",
                   }}
                 />
               ))}
@@ -244,18 +235,18 @@ export default function MedievalPortrait({
         />
 
         {/* Fade-in animation for the image */}
-        <div className="absolute inset-0 animate-fade-in p-3">
+        <div className="absolute inset-0 animate-fade-in p-1 sm:p-3">
           <Image
             src={src}
             alt={alt}
             fill
-            sizes="(max-width: 768px) 256px, 384px"
+            sizes="(max-width: 640px) 80px, (max-width: 768px) 120px, 160px"
             className="object-contain mix-blend-normal"
             priority
           />
         </div>
 
-        {/* Optional children (e.g., badges, status indicators) */}
+        {/* Optional children */}
         {children && (
           <div className="absolute inset-0 pointer-events-none">{children}</div>
         )}

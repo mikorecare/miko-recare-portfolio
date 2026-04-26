@@ -20,13 +20,13 @@ const iconPaths = {
   compass: "/icons/compass.png",
   axe: "/icons/axe.png",
 
-  scroll: "/icons/scroll.png", // For experience, storytelling, codex
-  crown: "/icons/crown.png", // For leadership, achievements
-  flask: "/icons/flask.png", // For alchemy, experimentation (Alchemist character)
-  crystal: "/icons/crystal.png", // For magic, wizardry (Wizard character)
-  book: "/icons/book.png", // For learning, documentation, tutorials
-  sword: "/icons/sword.png", // For combat, competition, challenges
-  bow: "/icons/bow.png", // For precision, archery (Archer character)
+  scroll: "/icons/scroll.png",
+  crown: "/icons/crown.png",
+  flask: "/icons/flask.png", 
+  crystal: "/icons/crystal.png",
+  book: "/icons/book.png",
+  sword: "/icons/sword.png",
+  bow: "/icons/bow.png",
 };
 
 export default function Icon({ name, className = "" }: IconProps) {

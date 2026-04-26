@@ -20,6 +20,7 @@ import { createWater } from "./components/water";
 import { createPortArea } from "./components/port-area";
 import MiniMap from "./components/mini-map";
 import DialogBox from "./ui/dialog-box";
+import Icon from "@/components/icons";
 
 export default function MedievalVillage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -389,6 +390,17 @@ export default function MedievalVillage() {
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-black">
+      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-9999 pointer-events-none">
+        <div className="bg-black/80 backdrop-blur-md border-2 border-amber-700 rounded-lg px-6 py-3 shadow-lg">
+          <p className="font-masonic text-amber-400 text-sm tracking-wider flex gap-2">
+            <Icon name="blacksmith" /> HEARKEN, TRAVELER! THIS REALM IS STILL BEING FORGED IN THE FIRES
+            OF CREATION. <Icon name="blacksmith" />
+          </p>
+          <p className="font-masonic text-amber-600/80 text-xs tracking-wider text-center mt-1">
+            More wonders shall manifest with each passing moon
+          </p>
+        </div>
+      </div>
       <div className="flex-1 relative">
         <div
           ref={containerRef}

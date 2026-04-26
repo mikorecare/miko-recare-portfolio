@@ -2,7 +2,7 @@ export const qaDatabase: Record<
   string,
   { frames: { text: string; emotion: string; endFrame: number }[] }
 > = {
-  "who am I": {
+  "who am i?": {
     frames: [
       {
         text: "Ah, curious about the developer behind this medieval realm?",
@@ -31,7 +31,7 @@ export const qaDatabase: Record<
       },
     ],
   },
-  "what are your stacks": {
+  "what are your stacks?": {
     frames: [
       {
         text: "My arsenal is vast and powerful!",
@@ -60,7 +60,7 @@ export const qaDatabase: Record<
       },
     ],
   },
-  "what can you do": {
+  "what can you do?": {
     frames: [
       {
         text: "I build responsive, scalable web applications that perform like a well-oiled siege engine.",
@@ -118,7 +118,7 @@ export const qaDatabase: Record<
       },
     ],
   },
-  "how did you adapt to AI": {
+  "how did you adapt to ai?": {
     frames: [
       {
         text: "Ah, the great question of our time... Traditional vs AI.",
@@ -152,7 +152,7 @@ export const qaDatabase: Record<
       },
     ],
   },
-  "what do you think about AI replacing developers": {
+  "what do you think about ai replacing developers?": {
     frames: [
       {
         text: "Honestly? AI won't replace developers who know how to use it.",
@@ -181,7 +181,7 @@ export const qaDatabase: Record<
       },
     ],
   },
-  "are you a traditional programmer or AI programmer": {
+  "are you a traditional programmer or ai programmer?": {
     frames: [
       {
         text: "I'm both. I refuse to choose just one!",

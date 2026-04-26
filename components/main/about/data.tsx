@@ -1,13 +1,15 @@
 export const location = "General Trias, Calabarzon, Philippines";
 export const bio = [
-  "I am a full-stack developer with expertise in React, Angular, NestJS, and Flutter. I craft responsive, scalable web applications with the precision of a master blacksmith.",
-  "With a Bachelor's in Information Technology from Cavite State University, I bring modern web technologies to life, turning wireframes into legendary digital experiences.",
-  "I thrive in collaborative, agile environments and am always ready to take on new challenges—let's build something great together.",
+  "Full-stack developer building responsive, scalable web and mobile applications.",
+  "B.S. IT graduate from Cavite State University.",
+  "Collaborative, agile, and ready to build something great.",
 ];
 
 export const mainStacks = [
   "React",
   "Next.js",
+  "React-Native",
+  "Tanstack Start",
   "TypeScript",
   "Angular",
   "NestJS",
@@ -15,6 +17,7 @@ export const mainStacks = [
   "Node.js",
   "Express",
   "Three.js",
+  "AI Assisted",
 ];
 
 export const cloudAndDevOps = [
@@ -34,6 +37,8 @@ export const stylingAndDesign = [
   "Chakra UI",
   "Material UI",
   "Figma",
+  "Photoshop",
+  "Gemini",
 ];
 
 export const softSkills = [
