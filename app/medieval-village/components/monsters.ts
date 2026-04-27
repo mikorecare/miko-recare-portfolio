@@ -137,7 +137,6 @@ export function loadMonsters(
                     mixer = new THREE.AnimationMixer(model);
                     const action = mixer.clipAction(gltf.animations[0]);
                     action.play();
-                    console.log(`🎬 Playing animation for ${monster.name}: ${gltf.animations[0].name}`);
                 }
 
                 // Add podium for short monsters
@@ -184,7 +183,6 @@ export function loadMonsters(
                     radius: 1.0,
                 });
 
-                console.log(`✅ Monster loaded: ${monster.name} (${monster.model}) - name tag at height ${nameTagOffset.toFixed(1)}`);
             },
             (progress) => {
                 console.log(`Loading ${monster.model}: ${Math.round(progress.loaded / progress.total * 100)}%`);
