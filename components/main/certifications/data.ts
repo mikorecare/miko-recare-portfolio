@@ -1,4 +1,13 @@
-export const certifications = [
+export interface Certification {
+    platform: string;
+    title: string;
+    issuedDate: string;
+    credentialId: string | null;
+    credentialUrl: string;
+    skills: string[];
+}
+
+export const certifications: Certification[] = [
     {
         platform: "Scrimba",
         title: "Learn TypeScript",
@@ -41,8 +50,7 @@ export const certifications = [
     },
     {
         platform: "Coursera",
-        title:
-            "Learning MEAN Stack by Building Real world Application Specialization",
+        title: "Learning MEAN Stack by Building Real world Application Specialization",
         issuedDate: "Nov 2023",
         credentialId: "HY6U4NZB6LT3",
         credentialUrl: "https://www.coursera.org/account/accomplishments/specialization/certificate/HY6U4NZB6LT3",

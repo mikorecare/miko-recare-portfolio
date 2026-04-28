@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
-import { qaDatabase, emotionFrames } from "./data";
+import { qaDatabase, getFramePath, AnimationSet } from "./data";
 
 interface QAModalProps {
   isOpen: boolean;
@@ -15,17 +15,18 @@ export default function QAModal({ isOpen, onClose, question }: QAModalProps) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [currentAnimationSet, setCurrentAnimationSet] =
+    useState<AnimationSet>("open-arms");
+  const [currentFrameNumber, setCurrentFrameNumber] = useState(1);
+
   const frameRef = useRef<NodeJS.Timeout | null>(null);
   const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const imageIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const [currentImageFrame, setCurrentImageFrame] = useState(1);
+  const animationIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Direct match using the question string as is
   const qa = qaDatabase[question] || qaDatabase["default"];
-
   const currentFrameData = qa.frames[frameIndex];
-  const availableFrames = emotionFrames[currentFrameData?.emotion] || [1];
-  const targetEndFrame = currentFrameData?.endFrame || 1;
+  const targetEndFrame = currentFrameData?.endFrame || 8;
 
   // Reset when modal opens with new question
   useEffect(() => {
@@ -33,54 +34,78 @@ export default function QAModal({ isOpen, onClose, question }: QAModalProps) {
       setFrameIndex(0);
       setDisplayText("");
       setIsPlaying(true);
-      setCurrentImageFrame(1);
+      setIsTyping(false);
+      setCurrentAnimationSet("open-arms");
+      setCurrentFrameNumber(1);
+      // Clear all intervals
+      if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
+      if (animationIntervalRef.current)
+        clearInterval(animationIntervalRef.current);
+      if (frameRef.current) clearTimeout(frameRef.current);
     }
   }, [isOpen, question]);
 
-  // Randomize image during typing
+  // Update animation set when frame changes
   useEffect(() => {
-    if (isTyping && availableFrames.length > 1) {
-      imageIntervalRef.current = setInterval(() => {
-        const randomIndex = Math.floor(Math.random() * availableFrames.length);
-        setCurrentImageFrame(availableFrames[randomIndex]);
+    if (currentFrameData) {
+      setCurrentAnimationSet(currentFrameData.animationSet);
+    }
+  }, [currentFrameData]);
+
+  // Animate frames continuously (1-8 looping) - ONLY while typing
+  useEffect(() => {
+    if (isTyping) {
+      // Start animation only when typing
+      animationIntervalRef.current = setInterval(() => {
+        setCurrentFrameNumber((prev) => {
+          let next = prev + 1;
+          if (next > 8) next = 1;
+          return next;
+        });
       }, 120);
-    } else if (!isTyping && currentFrameData) {
-      if (imageIntervalRef.current) {
-        clearInterval(imageIntervalRef.current);
-        imageIntervalRef.current = null;
+    } else {
+      // Stop animation when not typing
+      if (animationIntervalRef.current) {
+        clearInterval(animationIntervalRef.current);
+        animationIntervalRef.current = null;
       }
-      setCurrentImageFrame(targetEndFrame);
+      // Set to end frame when typing is complete
+      setCurrentFrameNumber(targetEndFrame);
     }
 
     return () => {
-      if (imageIntervalRef.current) clearInterval(imageIntervalRef.current);
+      if (animationIntervalRef.current)
+        clearInterval(animationIntervalRef.current);
     };
-  }, [isTyping, availableFrames, targetEndFrame, currentFrameData]);
+  }, [isTyping, targetEndFrame]);
 
   // Typing effect
   useEffect(() => {
     if (!isPlaying || !currentFrameData) return;
 
-    const initialFrame =
-      availableFrames[Math.floor(Math.random() * availableFrames.length)];
-    setCurrentImageFrame(initialFrame);
+    // Small delay to ensure component is ready
+    const startTyping = setTimeout(() => {
+      setIsTyping(true);
+      setDisplayText("");
+      let charIndex = 0;
+      const fullText = currentFrameData.text;
 
-    setIsTyping(true);
-    setDisplayText("");
-    let charIndex = 0;
-    const fullText = currentFrameData.text;
+      if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
 
-    typingIntervalRef.current = setInterval(() => {
-      if (charIndex <= fullText.length) {
-        setDisplayText(fullText.substring(0, charIndex));
-        charIndex++;
-      } else {
-        if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
-        setIsTyping(false);
-      }
-    }, 45);
+      typingIntervalRef.current = setInterval(() => {
+        if (charIndex <= fullText.length) {
+          setDisplayText(fullText.substring(0, charIndex));
+          charIndex++;
+        } else {
+          if (typingIntervalRef.current)
+            clearInterval(typingIntervalRef.current);
+          setIsTyping(false);
+        }
+      }, 45);
+    }, 50);
 
     return () => {
+      clearTimeout(startTyping);
       if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
     };
   }, [frameIndex, isPlaying, currentFrameData]);
@@ -115,22 +140,32 @@ export default function QAModal({ isOpen, onClose, question }: QAModalProps) {
 
   const handleClick = () => {
     if (isTyping) {
+      // Skip typing animation
       if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
-      if (imageIntervalRef.current) clearInterval(imageIntervalRef.current);
+      if (animationIntervalRef.current)
+        clearInterval(animationIntervalRef.current);
       setIsTyping(false);
       setDisplayText(currentFrameData?.text || "");
-      setCurrentImageFrame(targetEndFrame);
+      setCurrentFrameNumber(targetEndFrame);
     } else if (!isPlaying && frameIndex < qa.frames.length - 1) {
+      // Continue to next frame
       setIsPlaying(true);
     } else if (!isPlaying && frameIndex === qa.frames.length - 1) {
+      // Close modal
       onClose();
     }
   };
 
   if (!isOpen) return null;
 
-  const currentFrameNumber = frameIndex + 1;
+  const currentFrameNumberDisplay = frameIndex + 1;
   const totalFrames = qa.frames.length;
+
+  // Get the current image path
+  const currentImagePath = getFramePath(
+    currentAnimationSet,
+    currentFrameNumber,
+  );
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md animate-fade-in">
@@ -147,7 +182,7 @@ export default function QAModal({ isOpen, onClose, question }: QAModalProps) {
           onClick={handleClick}
         >
           <div className="absolute -top-3 left-3 bg-cyan-600 text-white text-xs font-reactor7 px-2 py-0.5 rounded-full tracking-wider">
-            [{currentFrameNumber}/{totalFrames}]
+            [{currentFrameNumberDisplay}/{totalFrames}]
           </div>
 
           <div className="min-h-[160px] pr-2 mb-6">
@@ -192,12 +227,12 @@ export default function QAModal({ isOpen, onClose, question }: QAModalProps) {
           <div className="absolute -bottom-12 -right-6 w-20 h-20 sm:w-24 sm:h-24">
             <div className="relative w-full h-full overflow-hidden shadow-xl bg-transparent">
               <Image
-                src={`/animated/talking-frame-${currentImageFrame}.png`}
+                src={currentImagePath}
                 alt="Talking character"
                 fill
                 sizes="96px"
                 className="object-cover"
-                priority
+                preload
               />
               {isTyping && (
                 <div className="absolute inset-0 rounded-full border-2 border-cyan-400 animate-ping" />

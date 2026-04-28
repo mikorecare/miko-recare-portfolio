@@ -37,7 +37,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${poppins.variable} ${inter.variable}`}>
-      <body className="relative min-h-screen">
+      <body className="relative min-h-screen" suppressHydrationWarning>
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-stone-900" />

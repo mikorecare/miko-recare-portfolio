@@ -1,105 +1,108 @@
 "use client";
 
-import { useState } from "react";
 import Icon from "@/components/icons";
-import { experiences } from "./data";
+import { experiences as allExperiences } from "./data";
 
-export default function Experience() {
-  const [expandedId, setExpandedId] = useState<number | null>(null);
+interface ExperienceProps {
+  experiences?: typeof allExperiences;
+  page?: number;
+  itemsPerPage?: number;
+}
+
+export default function Experience({
+  experiences: customExperiences,
+  page = 1,
+  itemsPerPage = 3,
+}: ExperienceProps) {
+  const experiencesToShow = customExperiences || allExperiences;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedExperiences = experiencesToShow.slice(startIndex, endIndex);
 
   return (
-    <div className="flex flex-col justify-center h-full w-full p-1 sm:p-6">
+    <div className="flex flex-col justify-start h-full w-full p-1 sm:p-6 overflow-y-auto">
       <p className="font-masonic text-[5px] sm:text-sm text-stone-600 text-center">
         ✧ THE JOURNEY ✧
       </p>
-      
+
       <div className="w-4 sm:w-24 h-px bg-amber-700/30 my-0.5 sm:my-4 mx-auto"></div>
-      
-      <div className="space-y-1 sm:space-y-2 my-0.5 sm:my-2">
-        {experiences.map((exp, i) => (
+
+      <div className="space-y-2 sm:space-y-3 my-0.5 sm:my-2">
+        {paginatedExperiences.map((exp, i) => (
           <div
             key={i}
             className="bg-amber-100/60 rounded border border-amber-700/30 overflow-hidden"
-            onMouseEnter={() => setExpandedId(i)}
-            onMouseLeave={() => setExpandedId(null)}
           >
-            {/* Header - Always visible */}
-            <div className="p-[2px] sm:p-2">
-              <div className="flex justify-between items-center flex-wrap gap-0.5">
-                <h3 className="font-masonic text-amber-800 text-[4px] sm:text-[8px] md:text-xs font-bold tracking-wider">
+            {/* Header - Company and Period */}
+            <div className="p-2 sm:p-3 bg-amber-200/30 border-b border-amber-700/20">
+              <div className="flex justify-between items-start flex-wrap gap-1">
+                <h2 className="font-masonic text-amber-800 text-[6px] sm:text-xs md:text-sm font-bold tracking-wider">
                   {exp.title}
-                </h3>
-                <span className="font-masonic text-stone-500 text-[3px] sm:text-[5px] md:text-xs bg-amber-200/50 px-0.5 sm:px-1.5 py-0.5 rounded">
+                </h2>
+                <span className="font-masonic text-stone-500 text-[4px] sm:text-[6px] md:text-xs bg-amber-200/50 px-1 sm:px-2 py-0.5 rounded whitespace-nowrap">
                   {exp.period}
                 </span>
               </div>
-              <p className="font-masonic text-amber-700 text-[3px] sm:text-[5px] md:text-xs mt-0.5">
+              <p className="font-masonic text-amber-700 text-[5px] sm:text-[8px] md:text-xs font-semibold mt-0.5">
                 {exp.role}
               </p>
             </div>
 
-            {/* Expanded content */}
-            <div
-              className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                expandedId === i ? "max-h-48 sm:max-h-96 opacity-100" : "max-h-0 opacity-0"
-              }`}
-            >
-              <div className="p-1 sm:p-2 pt-0 border-t border-amber-700/20 space-y-0.5 sm:space-y-1.5">
-                {exp.location && (
-                  <p className="font-masonic text-stone-500 text-[5px] sm:text-[8px] flex items-center gap-0.5">
-                    <Icon name="map" className="w-1.5 h-1.5 sm:w-2 sm:h-2" /> {exp.location}
-                  </p>
-                )}
-
-                <p className="font-masonic text-stone-600 text-[5px] sm:text-[8px] leading-tight">
-                  {exp.description.substring(0, 100)}...
+            {/* Content */}
+            <div className="p-2 sm:p-3 space-y-1.5 sm:space-y-2">
+              {exp.location && (
+                <p className="font-masonic text-stone-500 text-[5px] sm:text-[8px] flex items-center gap-1">
+                  <Icon name="map" className="w-2 h-2 sm:w-3 sm:h-3" />{" "}
+                  {exp.location}
                 </p>
+              )}
 
-                {exp.projects && exp.projects.length > 0 && (
-                  <div>
-                    <p className="font-masonic text-amber-700 text-[5px] sm:text-[7px] tracking-wider">
-                      Quests:
-                    </p>
-                    <div className="flex flex-wrap gap-0.5 mt-0.5">
-                      {exp.projects.slice(0, 2).map((project, idx) => (
-                        <span
-                          key={idx}
-                          className="font-masonic text-stone-500 text-[4px] sm:text-[7px] border border-amber-700/30 px-0.5 sm:px-1 rounded-full bg-amber-100/50"
-                        >
-                          {project}
-                        </span>
-                      ))}
-                      {exp.projects.length > 2 && (
-                        <span className="font-masonic text-amber-600 text-[4px] sm:text-[7px]">
-                          +{exp.projects.length - 2}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                )}
+              <p className="font-masonic text-stone-600 text-[6px] sm:text-[9px] leading-relaxed">
+                {exp.description}
+              </p>
 
-                {exp.skills && exp.skills.length > 0 && (
-                  <div className="flex flex-wrap gap-0.5">
-                    {exp.skills.slice(0, 3).map((skill, idx) => (
-                      <span key={idx} className="font-masonic text-amber-600/50 text-[4px] sm:text-[6px] tracking-wider">
-                        ✦ {skill}
+              {exp.projects && exp.projects.length > 0 && (
+                <div>
+                  <p className="font-masonic text-amber-700 text-[5px] sm:text-[8px] tracking-wider font-semibold">
+                    Key Quests:
+                  </p>
+                  <div className="flex flex-wrap gap-1 mt-1">
+                    {exp.projects.map((project, idx) => (
+                      <span
+                        key={idx}
+                        className="font-masonic text-stone-600 text-[4px] sm:text-[7px] border border-amber-700/30 px-1 sm:px-1.5 py-0.5 rounded-full bg-amber-100/70"
+                      >
+                        {project}
                       </span>
                     ))}
-                    {exp.skills.length > 3 && (
-                      <span className="font-masonic text-amber-600/50 text-[4px] sm:text-[6px]">
-                        +{exp.skills.length - 3}
-                      </span>
-                    )}
                   </div>
-                )}
-              </div>
+                </div>
+              )}
+
+              {exp.skills && exp.skills.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {exp.skills.map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="font-masonic text-amber-600/60 text-[4px] sm:text-[6px] tracking-wider"
+                    >
+                      ✦ {skill}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         ))}
       </div>
-      
-      <div className="flex gap-0.5 text-[3px] sm:text-[6px] text-amber-700/20 mt-1 sm:mt-4 justify-center">
-        <span>ᚠ</span><span>ᚢ</span><span>ᚦ</span><span>ᚨ</span><span>ᚱ</span><span>ᚷ</span>
+
+      <div className="flex gap-0.5 text-[3px] sm:text-[6px] text-amber-700/20 mt-2 sm:mt-4 justify-center">
+        <span>ᚠ</span>
+        <span>ᚢ</span>
+        <span>ᚦ</span>
+        <span>ᚨ</span>
+        <span>ᚱ</span>
+        <span>ᚷ</span>
       </div>
     </div>
   );

@@ -132,6 +132,10 @@ canvas {
   image-rendering: pixelated;
 }
 
+button {
+  cursor: pointer;
+}
+
 @keyframes slide-up {
   from {
     opacity: 0;

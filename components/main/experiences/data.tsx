@@ -110,6 +110,7 @@ export const experiences = [
       "Mobile App UI Design",
       "Customer Chat Feature",
       "Photo Upload Functionality",
+      "Admin Web App Support"
     ],
     skills: ["Angular", "Flutter", "Mobile Development", "UI/UX Design"],
   },

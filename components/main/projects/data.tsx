@@ -4,9 +4,35 @@ interface Project {
   tech: string[];
   highlights?: string[];
   image?: string;
+  links?: { name: string; url: string }[]; // Array of links
 }
 
 export const projects: Project[] = [
+  {
+    name: "Nextsys IT Solutions Website",
+    description:
+      "Created a web page for a start up company with futuristic styling and contact feature.",
+    tech: [
+      "Next.js 16",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer-motion",
+      "Resend API",
+      "CloudFlare",
+      "Vercel",
+      "Git",
+    ],
+    highlights: [
+      "Futuristic Appeal",
+      "Contact Us working form with security",
+      "Secured Form",
+      "Mobile Responsive Page",
+    ],
+    links: [
+      { name: "Website", url: "https://nextsystech.com" },
+      { name: "GitHub", url: "https://github.com/mikorecare/nextsys" },
+    ],
+  },
   {
     name: "Go Negosyo MBA Learning Management System",
     description:
@@ -25,6 +51,7 @@ export const projects: Project[] = [
       "Course management",
       "Student progress tracking",
     ],
+    links: [{ name: "Demo", url: "https://go-negosyo-web-dev.azurewebsites.net/" }],
   },
   {
     name: "Unleash PH Admin Portal",
@@ -35,8 +62,6 @@ export const projects: Project[] = [
       "TypeScript",
       "Express.js",
       "MongoDB",
-      "ExpressJS",
-      "MongoDB",
       "Bitbucket",
       "Jira",
       "Leaflet",
@@ -45,6 +70,9 @@ export const projects: Project[] = [
       "Role-based access",
       "Content management",
       "Analytics dashboard",
+    ],
+    links: [
+      { name: "Admin Demo", url: "portal.unleash.ph" },
     ],
   },
   {
@@ -60,11 +88,8 @@ export const projects: Project[] = [
       "CI/CD Pipepline",
       "SQL Server Management",
     ],
-    highlights: [
-      "Collection scheduling",
-      "Route optimization",
-      "Real-time reporting",
-    ],
+    highlights: ["Collection scheduling", "Real-time reporting"],
+    links: [{ name: "Live Demo", url: "https://makati-waste-fe.azurewebsites.net/login" }],
   },
   {
     name: "Plant AI – Admin Panel",
@@ -91,6 +116,9 @@ export const projects: Project[] = [
       "Data visualization",
       "Workflow optimization",
     ],
+    links: [
+      { name: "Admin Panel", url: "https://ulpi-plant-ai-web-poc-dteyagdka2h3c8hd.eastasia-01.azurewebsites.net/" },
+    ],
   },
   {
     name: "Night Pulse – Admin & LED Screen Dashboard",
@@ -103,6 +131,7 @@ export const projects: Project[] = [
       "System monitoring",
       "Responsive UI",
     ],
+    links: [{ name: "Dashboard", url: "#" }],
   },
   {
     name: "Unleash - E-Commerce Website",
@@ -126,6 +155,9 @@ export const projects: Project[] = [
       "Bug Fixing",
       "Feature Development",
     ],
+    links: [
+      { name: "Mobile App", url: "https://play.google.com/store/apps/details?id=com.hs.unleash" },
+    ],
   },
   {
     name: "Unleash Landing Page - unleash.ph (old and new)",
@@ -137,6 +169,10 @@ export const projects: Project[] = [
       "Responsive design",
       "Performance optimized",
     ],
+    links: [
+      { name: "New Version", url: "https://app-unleash-landing-page-stg.azurewebsites.net/home" },
+      { name: "Old Version", url: "https://unleash.ph/" },
+    ],
   },
   {
     name: "Medieval Village Explorer",
@@ -144,15 +180,9 @@ export const projects: Project[] = [
       "A 3D medieval world built with Three.js, featuring two villages, monsters with dialog, and first-person exploration.",
     tech: ["Three.js", "Next.js", "TypeScript"],
     highlights: ["3D environment", "First-person controls", "Interactive NPCs"],
-  },
-  {
-    name: "Nextsys IT Solutions website - nextsystech.com",
-    description: "Create the website for a startup company",
-    tech: ["Next.js", "TypeScript", "Tailwind"],
-    highlights: [
-      "Product showcase",
-      "Responsive design",
-      "Performance optimized",
+    links: [
+      { name: "Play Demo", url: "#" },
+      { name: "Source Code", url: "https://github.com/mikorecare/miko-recare-portfolio" },
     ],
   },
   {
@@ -161,5 +191,10 @@ export const projects: Project[] = [
       "Polishing and enhancing mobile applications built with Flutter for cross-platform deployment.",
     tech: ["Flutter", "Dart", "Firebase"],
     highlights: ["Cross-platform", "UI polishing", "Performance optimization"],
+    links: [
+      { name: "App Store", url: "#" },
+      { name: "Play Store", url: "#" },
+      { name: "GitHub", url: "#" },
+    ],
   },
 ];

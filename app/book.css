@@ -20,11 +20,13 @@
 
 .demoPage.left-page {
   border-radius: 16px 0 0 16px;
+  padding-bottom: 25px;
 }
 
 /* Right page (shows on right side of spread) */
 .demoPage.right-page {
   border-radius: 0 16px 16px 0;
+  padding-bottom: 25px;
 }
 
 /* Cover only */

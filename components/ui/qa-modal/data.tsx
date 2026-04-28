@@ -1,33 +1,43 @@
+// qa-config.ts
+
+export type AnimationSet = "open-arms" | "raising-finger";
+
 export const qaDatabase: Record<
   string,
-  { frames: { text: string; emotion: string; endFrame: number }[] }
+  {
+    frames: {
+      text: string;
+      animationSet: AnimationSet;
+      endFrame: number;
+    }[];
+  }
 > = {
   "who am i?": {
     frames: [
       {
         text: "Ah, curious about the developer behind this medieval realm?",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "I am Miko Recare, a full-stack developer from General Trias, Philippines.",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "I specialize in React, Angular, NestJS, and Flutter.",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "I turn wireframes into legendary digital experiences with the precision of a master blacksmith.",
-        emotion: "doing-thing",
-        endFrame: 10,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "Bachelor's in IT from Cavite State University. Always ready for new challenges!",
-        emotion: "happy",
-        endFrame: 16,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
     ],
   },
@@ -35,28 +45,28 @@ export const qaDatabase: Record<
     frames: [
       {
         text: "My arsenal is vast and powerful!",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "Frontend: React, Next.js, Angular, TypeScript, Tailwind.",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "Backend: NestJS, Node.js, Express, PostgreSQL, MongoDB, Supabase, Firebase.",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "Mobile: Flutter, React Native, Expo.",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "Cloud & DevOps: AWS EC2, AWS S3, Azure, GCP, Docker, Elastic Beanstalk.",
-        emotion: "acceptance",
-        endFrame: 15,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
     ],
   },
@@ -64,28 +74,28 @@ export const qaDatabase: Record<
     frames: [
       {
         text: "I build responsive, scalable web applications that perform like a well-oiled siege engine.",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "I convert legacy code to modern architecture - like React Portal to Next.js 15.",
-        emotion: "doing-thing",
-        endFrame: 10,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "I create 3D experiences with Three.js and real-time dashboards with Socket.io.",
-        emotion: "analyzing",
-        endFrame: 12,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "I do code reviews, mentor juniors, and collaborate in agile teams.",
-        emotion: "showing-solution",
-        endFrame: 14,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "Basically... I build things that work beautifully. What do you need?",
-        emotion: "happy",
-        endFrame: 16,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
     ],
   },
@@ -93,28 +103,28 @@ export const qaDatabase: Record<
     frames: [
       {
         text: "I've walked many paths in this coding realm.",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "At Highly Succeed, I converted React portals to Next.js 15 with TypeScript.",
-        emotion: "doing-thing",
-        endFrame: 10,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "At Zyllem, I upgraded Angular from v7 to v18 and saved costs with custom calendars.",
-        emotion: "analyzing",
-        endFrame: 12,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "At Nuclear Brain, I upgraded Node.js, fixed email servers, and deployed to AWS.",
-        emotion: "showing-solution",
-        endFrame: 14,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "From junior to full-stack - I've grown with every project. Ready for more!",
-        emotion: "happy",
-        endFrame: 16,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
     ],
   },
@@ -122,33 +132,33 @@ export const qaDatabase: Record<
     frames: [
       {
         text: "Ah, the great question of our time... Traditional vs AI.",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "At first, I was caught between two worlds. Should I be worried?",
-        emotion: "thinking-sigh",
+        animationSet: "raising-finger",
         endFrame: 8,
       },
       {
         text: "Will AI replace developers? I felt overwhelmed by the rise of AI in programming.",
-        emotion: "thinking-deep",
-        endFrame: 11,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "But then I realized... I don't have to fight it. I can embrace it!",
-        emotion: "realization",
-        endFrame: 13,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "Now I'm a hybrid programmer! Traditional coding + AI assistance.",
-        emotion: "happy",
-        endFrame: 16,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "I write code faster, debug smarter, and build better than ever before!",
-        emotion: "acceptance",
-        endFrame: 15,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
     ],
   },
@@ -156,28 +166,28 @@ export const qaDatabase: Record<
     frames: [
       {
         text: "Honestly? AI won't replace developers who know how to use it.",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "The old way - pure manual coding. The new way - AI as your assistant.",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "I started testing, learning to prompt, to guide, to collaborate with AI.",
-        emotion: "doing-thing",
-        endFrame: 10,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "Now I'm 10x more productive. AI handles the boilerplate, I handle the architecture.",
-        emotion: "showing-solution",
-        endFrame: 14,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "Best of both worlds! Traditional craftsmanship + AI efficiency.",
-        emotion: "happy",
-        endFrame: 16,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
     ],
   },
@@ -185,33 +195,33 @@ export const qaDatabase: Record<
     frames: [
       {
         text: "I'm both. I refuse to choose just one!",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "I respect the fundamentals - algorithms, data structures, clean code.",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "But I also embrace AI - it's like having a thousand junior devs helping me.",
-        emotion: "doing-thing",
-        endFrame: 10,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "Conflicting data? No. Complementary skills.",
-        emotion: "analyzing",
-        endFrame: 12,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "I'm a hybrid programmer. The future is not human OR machine - it's human AND machine.",
-        emotion: "acceptance",
-        endFrame: 15,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
       {
         text: "That's my philosophy. Adapt, learn, grow together!",
-        emotion: "happy",
-        endFrame: 16,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
     ],
   },
@@ -219,31 +229,41 @@ export const qaDatabase: Record<
     frames: [
       {
         text: "Hmm... I'm not sure I understand the question, traveler.",
-        emotion: "thinking-sigh",
+        animationSet: "open-arms",
         endFrame: 8,
       },
       {
         text: "Ask me about who I am, my stacks, what I can do, or my experience.",
-        emotion: "thinking",
-        endFrame: 5,
+        animationSet: "raising-finger",
+        endFrame: 8,
       },
       {
         text: "I'll share my wisdom from the coding realm!",
-        emotion: "happy",
-        endFrame: 16,
+        animationSet: "open-arms",
+        endFrame: 8,
       },
     ],
   },
 };
 
-export const emotionFrames: Record<string, number[]> = {
-  thinking: [1, 2, 3, 4, 5, 6, 7, 9],
-  "thinking-sigh": [8],
-  "doing-thing": [10],
-  "thinking-deep": [11],
-  analyzing: [12],
-  realization: [13],
-  "showing-solution": [14],
-  acceptance: [15],
-  happy: [16],
+// Helper function to get the correct frame path
+export const getFramePath = (
+  animationSet: AnimationSet,
+  frameNumber: number,
+): string => {
+  const baseName =
+    animationSet === "open-arms"
+      ? "talking-open-arms"
+      : "talking-raising-finger";
+  return `/animated/${baseName}-${frameNumber}.png`;
+};
+
+// Function to loop through frames for current dialogue
+export const getFramesForAnimation = (
+  animationSet: AnimationSet,
+  currentFrame: number,
+): string => {
+  // Loop from 1 to 8 and repeat
+  const frameNumber = ((currentFrame - 1) % 8) + 1;
+  return getFramePath(animationSet, frameNumber);
 };

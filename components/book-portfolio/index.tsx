@@ -24,29 +24,39 @@ export default function BookPortfolio() {
 
   useEffect(() => {
     const loadAssets = async () => {
+      // Generate all open-arms frames (1-8)
+      const openArmsFrames = Array.from(
+        { length: 8 },
+        (_, i) => `/animated/talking-open-arms-${i + 1}.png`,
+      );
+
+      // Generate all raising-finger frames (1-8)
+      const raisingFingerFrames = Array.from(
+        { length: 8 },
+        (_, i) => `/animated/talking-raising-finger-${i + 1}.png`,
+      );
+
       const imagesToPreload = [
-        // Essential profile images (current character + a few)
+        // Profile images
         "/profile/king.png",
         "/profile/wizard.png",
         "/profile/archer.png",
 
-        // Essential buttons
+        // Buttons
         "/buttons/enter-the-keep.png",
         "/buttons/explore-the-village.png",
         "/buttons/view-quest.png",
 
-        // First few animated frames
-        "/animated/talking-frame-1.png",
-        "/animated/talking-frame-2.png",
-        "/animated/talking-frame-3.png",
-        "/animated/talking-frame-4.png",
-        "/animated/talking-frame-5.png",
-
         // Background
         "/scroll.png",
+
+        // All animated frames (both sets)
+        ...openArmsFrames,
+        ...raisingFingerFrames,
       ];
 
       let loaded = 0;
+      const totalImages = imagesToPreload.length;
 
       const preloadPromises = imagesToPreload.map((src) => {
         return new Promise((resolve) => {
@@ -54,16 +64,12 @@ export default function BookPortfolio() {
           img.src = src;
           img.onload = () => {
             loaded++;
-            setLoadingProgress(
-              Math.floor((loaded / imagesToPreload.length) * 100),
-            );
+            setLoadingProgress(Math.floor((loaded / totalImages) * 100));
             resolve(true);
           };
           img.onerror = () => {
             loaded++;
-            setLoadingProgress(
-              Math.floor((loaded / imagesToPreload.length) * 100),
-            );
+            setLoadingProgress(Math.floor((loaded / totalImages) * 100));
             resolve(false);
           };
         });
@@ -95,7 +101,7 @@ export default function BookPortfolio() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="min-h-screen bg-[#1a1410] flex items-center justify-center"
+        className="min-h-screen bg-[#1a1410] flex items-center justify-center relative z-50"
       >
         <div className="text-center">
           <motion.div
@@ -123,10 +129,40 @@ export default function BookPortfolio() {
   }
 
   return (
-    <div className="min-h-screen">
-      {/* Book Section - Centered */}
-      <div className="h-screen flex items-center justify-center">
-        <div className="w-full max-w-5xl px-8">
+    <div className="relative z-20">
+      {/* Book Section - Centered with side buttons */}
+      <div className="h-screen flex items-center justify-center relative px-4">
+        {/* Left Button - Positioned on the left side of the book */}
+        {/* Left Button - Positioned on the left side of the book (desktop) / below (mobile) */}
+        <button
+          onClick={prevPage}
+          className="fixed z-30 group flex items-center justify-center w-12 h-12 rounded-full bg-black/40 backdrop-blur-sm border-2 border-amber-600/60 text-amber-400 transition-all duration-300 hover:scale-110 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/20 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-transparent
+    lg:left-[calc(50%-520px)] lg:top-1/2 lg:-translate-y-1/2
+    bottom-6 left-1/2 -translate-x-[110%]"
+        >
+          <span className="text-lg group-hover:animate-pulse">◀</span>
+          <div className="absolute inset-0 rounded-full bg-amber-500/0 group-hover:bg-amber-500/20 transition-all duration-300 blur-xl" />
+          <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute inset-0 rounded-full bg-amber-400/20 blur-2xl" />
+          </div>
+        </button>
+
+        {/* Right Button - Positioned on the right side of the book (desktop) / below (mobile) */}
+        <button
+          onClick={nextPage}
+          className="fixed z-30 group flex items-center justify-center w-12 h-12 rounded-full bg-black/40 backdrop-blur-sm border-2 border-amber-600/60 text-amber-400 transition-all duration-300 hover:scale-110 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/20 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-transparent
+    lg:right-[calc(50%-520px)] lg:top-1/2 lg:-translate-y-1/2
+    bottom-6 right-1/2 translate-x-[110%]"
+        >
+          <span className="text-lg group-hover:animate-pulse">▶</span>
+          <div className="absolute inset-0 rounded-full bg-amber-500/0 group-hover:bg-amber-500/20 transition-all duration-300 blur-xl" />
+          <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute inset-0 rounded-full bg-amber-400/20 blur-2xl" />
+          </div>
+        </button>
+
+        {/* Book Container */}
+        <div className="w-full max-w-5xl px-8 relative z-10">
           <HTMLFlipBook
             ref={flipBookRef}
             width={900}
@@ -137,6 +173,7 @@ export default function BookPortfolio() {
             className="mx-auto"
             maxShadowOpacity={1}
             style={{ width: "100%", height: "auto" }}
+            useMouseEvents={false}
           >
             <div className="demoPage cover right-page overflow-hidden">
               <Cover />
@@ -166,9 +203,33 @@ export default function BookPortfolio() {
               <div className="page-number">folio 3</div>
             </div>
 
+            {/* Page 1 - 1 item */}
             <div className="demoPage page-content right-page overflow-hidden">
-              <Experience />
-              <div className="page-number">folio 4</div>
+              <Experience page={1} itemsPerPage={1} />
+              <div className="page-number">folio 4a</div>
+            </div>
+
+            {/* Page 2 - 1 item */}
+            <div className="demoPage page-content left-page overflow-hidden">
+              <Experience page={2} itemsPerPage={1} />
+              <div className="page-number">folio 4b</div>
+            </div>
+
+            {/* Page 3 - 1 item */}
+            <div className="demoPage page-content right-page overflow-hidden">
+              <Experience page={3} itemsPerPage={1} />
+              <div className="page-number">folio 4c</div>
+            </div>
+
+            {/* Page 4 - remaining items */}
+            <div className="demoPage page-content left-page overflow-hidden">
+              <Experience page={4} itemsPerPage={1} />
+              <div className="page-number">folio 4d</div>
+            </div>
+
+            <div className="demoPage page-content right-page overflow-hidden">
+              <Experience page={5} itemsPerPage={1} />
+              <div className="page-number">folio 4e</div>
             </div>
 
             <div className="demoPage page-content left-page overflow-hidden">
@@ -177,44 +238,86 @@ export default function BookPortfolio() {
             </div>
 
             <div className="demoPage page-content right-page overflow-hidden">
-              <Projects />
-              <div className="page-number">folio 6</div>
+              <Projects page={1} itemsPerPage={1} />
+              <div className="page-number">folio 6a</div>
             </div>
 
             <div className="demoPage page-content left-page overflow-hidden">
-              <Certifications />
-              <div className="page-number">folio 7</div>
+              <Projects page={2} itemsPerPage={1} />
+              <div className="page-number">folio 6b</div>
             </div>
 
             <div className="demoPage page-content right-page overflow-hidden">
+              <Projects page={3} itemsPerPage={1} />
+              <div className="page-number">folio 6c</div>
+            </div>
+
+            <div className="demoPage page-content left-page overflow-hidden">
+              <Projects page={4} itemsPerPage={1} />
+              <div className="page-number">folio 6d</div>
+            </div>
+
+            <div className="demoPage page-content right-page overflow-hidden">
+              <Projects page={5} itemsPerPage={1} />
+              <div className="page-number">folio 6e</div>
+            </div>
+
+            <div className="demoPage page-content left-page overflow-hidden">
+              <Projects page={6} itemsPerPage={1} />
+              <div className="page-number">folio 6f</div>
+            </div>
+
+            <div className="demoPage page-content right-page overflow-hidden">
+              <Projects page={7} itemsPerPage={1} />
+              <div className="page-number">folio 6g</div>
+            </div>
+
+            <div className="demoPage page-content left-page overflow-hidden">
+              <Projects page={8} itemsPerPage={1} />
+              <div className="page-number">folio 6h</div>
+            </div>
+
+            <div className="demoPage page-content right-page overflow-hidden">
+              <Projects page={9} itemsPerPage={1} />
+              <div className="page-number">folio 6i</div>
+            </div>
+
+            <div className="demoPage page-content left-page overflow-hidden">
+              <Projects page={10} itemsPerPage={1} />
+              <div className="page-number">folio 6j</div>
+            </div>
+
+            <div className="demoPage page-content right-page overflow-hidden">
+              <Certifications page={1} itemsPerPage={3} />
+              <div className="page-number">folio 7a</div>
+            </div>
+
+            {/* Page 2 - Next 3 certifications */}
+            <div className="demoPage page-content left-page overflow-hidden">
+              <Certifications page={2} itemsPerPage={3} />
+              <div className="page-number">folio 7b</div>
+            </div>
+
+            {/* Page 3 - Remaining certifications */}
+            <div className="demoPage page-content right-page overflow-hidden">
+              <Certifications page={3} itemsPerPage={3} />
+              <div className="page-number">folio 7c</div>
+            </div>
+
+            <div className="demoPage page-content left-page overflow-hidden">
               <Awards />
               <div className="page-number">folio 8</div>
             </div>
 
-            <div className="demoPage page-content left-page overflow-hidden">
+            <div className="demoPage page-content right-page overflow-hidden">
               <SummonDeveloper />
               <div className="page-number">folio 9</div>
             </div>
 
-            <div className="demoPage back-cover right-page overflow-hidden">
+            <div className="demoPage back-cover left-page overflow-hidden">
               <BackCover />
             </div>
           </HTMLFlipBook>
-
-          <div className="flex justify-center gap-4 mt-6">
-            <button
-              onClick={prevPage}
-              className="px-5 py-2 bg-black/50 border border-amber-600 text-amber-400 rounded-lg text-sm font-masonic tracking-wider hover:bg-amber-600/20 transition-colors"
-            >
-              ◀ Previous
-            </button>
-            <button
-              onClick={nextPage}
-              className="px-5 py-2 bg-black/50 border border-amber-600 text-amber-400 rounded-lg text-sm font-masonic tracking-wider hover:bg-amber-600/20 transition-colors"
-            >
-              Next ▶
-            </button>
-          </div>
         </div>
       </div>
     </div>
