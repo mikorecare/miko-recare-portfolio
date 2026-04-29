@@ -47,9 +47,12 @@ export default function Projects({
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="font-masonic text-amber-600 hover:text-amber-800 text-[3px] sm:text-[6px] md:text-[8px] tracking-wider transition-colors whitespace-nowrap"
+                        className="font-masonic text-amber-500 hover:text-amber-300 text-[6px] sm:text-[9px] md:text-[11px] tracking-wider whitespace-nowrap transition-all duration-200 inline-block font-semibold animate-pulse"
+                        style={{
+                          textShadow: "0 0 8px rgba(245, 158, 11, 0.8)",
+                        }}
                       >
-                        [{link.name}] →
+                        ✦ [{link.name}] →
                       </a>
                     ))}
                   </div>
