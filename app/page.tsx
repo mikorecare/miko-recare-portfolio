@@ -1,10 +1,12 @@
 "use client";
 
 import BookPortfolio from "@/components/book-portfolio";
+import DownloadCV from "@/components/download-cv";
 import NavigationHeader from "@/components/navigation";
 import QASection from "@/components/qa-section";
 
 export default function Home() {
+
   return (
     <main className="relative">
       <NavigationHeader />
@@ -83,6 +85,11 @@ export default function Home() {
       {/* Q&A Section */}
       <div className="relative z-10 pt-8">
         <QASection />
+      </div>
+
+      {/* Download CV Button - Below Q&A Section */}
+      <div className="relative z-31 flex justify-center">
+          <DownloadCV />
       </div>
     </main>
   );

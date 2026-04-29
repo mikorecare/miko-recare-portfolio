@@ -85,15 +85,26 @@ export default function Projects({
               )}
 
               <div>
-                <p className="font-masonic text-amber-700 text-[3px] sm:text-xs tracking-wider">
-                  Tech Stack:
+                <p className="font-masonic text-amber-800 dark:text-amber-600 text-[3px] sm:text-xs tracking-wider font-semibold mb-1">
+                  ⚔ Tech Stack:
                 </p>
                 <div className="flex flex-wrap gap-1 sm:gap-2 mt-0.5">
                   {project.tech.map((t, idx) => (
                     <span
                       key={idx}
-                      className="font-masonic text-amber-700/50 text-[3px] sm:text-[10px] tracking-wider"
+                      className="group relative inline-flex items-center gap-0.5
+                   px-1 sm:px-2 py-0.5 rounded-md
+                   bg-gradient-to-br from-amber-100 to-amber-50
+                   dark:from-amber-200/80 dark:to-amber-100/60
+                   border border-amber-600/40 hover:border-amber-600/80
+                   shadow-sm hover:shadow-md
+                   transition-all duration-200 hover:-translate-y-0.5
+                   font-masonic text-[3px] sm:text-[10px] tracking-wider
+                   text-amber-900 dark:text-amber-950 font-medium"
                     >
+                      <span className="text-amber-700 text-[2px] sm:text-[6px]">
+                        ✦
+                      </span>
                       {t}
                     </span>
                   ))}

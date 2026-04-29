@@ -80,13 +80,29 @@ export default function Experience({
               )}
 
               {exp.skills && exp.skills.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-1">
+                <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-1 sm:mt-2">
                   {exp.skills.map((skill, idx) => (
                     <span
                       key={idx}
-                      className="font-masonic text-amber-600/60 text-[4px] sm:text-[6px] tracking-wider"
+                      className="group relative inline-flex items-center gap-0.5 sm:gap-1
+                   px-1 sm:px-2 py-0.5 sm:py-1 rounded-md
+                   bg-gradient-to-br from-amber-100 to-amber-50
+                   dark:from-amber-200/80 dark:to-amber-100/60
+                   border border-amber-600/40 hover:border-amber-600/80
+                   shadow-sm hover:shadow-md
+                   transition-all duration-200 hover:-translate-y-0.5
+                   font-masonic text-[4px] sm:text-[6px] tracking-wider"
                     >
-                      ✦ {skill}
+                      {/* Skill text */}
+                      <span className="text-amber-900 dark:text-amber-950 font-semibold">
+                        {skill}
+                      </span>
+
+                      {/* Hover glow effect */}
+                      <span
+                        className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 
+                         bg-amber-400/20 blur-sm transition-opacity duration-300 pointer-events-none"
+                      />
                     </span>
                   ))}
                 </div>

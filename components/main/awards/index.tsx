@@ -44,7 +44,7 @@ export const Awards = () => {
             {award.title}
           </h3>
 
-          <div className="flex items-center justify-center gap-1 sm:gap-3 text-[4px] sm:text-[8px] md:text-xs text-amber-700">
+          <div className="flex items-center justify-center gap-1 sm:gap-3 text-[4px] sm:text-[6px] md:text-[8px] text-amber-700">
             <div className="flex items-center gap-0.5 sm:gap-1">
               <Icon name="quill" className="w-1.5 h-1.5 sm:w-3 sm:h-3" />
               <span className="font-masonic">{award.organization}</span>
@@ -56,40 +56,21 @@ export const Awards = () => {
             </div>
           </div>
 
-          {/* Decorative divider */}
-          <div className="flex items-center justify-center gap-1 sm:gap-2">
-            <div className="w-6 sm:w-16 h-px bg-gradient-to-r from-transparent to-amber-700/30"></div>
-            <Icon name="crown" className="w-1.5 h-1.5 sm:w-3 sm:h-3 text-amber-500/40" />
-            <div className="w-6 sm:w-16 h-px bg-gradient-to-l from-transparent to-amber-700/30"></div>
-          </div>
-
           {/* Description */}
-          <p className="font-masonic text-stone-700 text-[5px] sm:text-[10px] leading-tight sm:leading-relaxed text-center">
+          <p className="font-masonic text-stone-700 text-[4px] sm:text-[6px] md:text-[7px] leading-tight sm:leading-relaxed text-center">
             {award.description.length > 100 ? award.description.substring(0, 100) + "..." : award.description}
           </p>
 
-          {/* Achievement badge */}
-          {award.achievement && (
-            <div className="flex justify-center">
-              <div className="inline-flex items-center gap-1 sm:gap-2 px-1.5 sm:px-3 py-0.5 sm:py-1.5 bg-amber-200/50 border border-amber-700/30 rounded-full">
-                <Icon name="crown" className="w-1.5 h-1.5 sm:w-3 sm:h-3 text-amber-700" />
-                <span className="font-masonic text-amber-800 text-[5px] sm:text-[8px] font-bold tracking-wider">
-                  {award.achievement}
-                </span>
-              </div>
-            </div>
-          )}
-
           {/* View Certificate Button */}
           {award.certificateUrl && (
-            <div className="flex justify-center pt-0.5 sm:pt-2">
+            <div className="flex justify-center pt-0.5">
               <a
                 href={award.certificateUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
                 onMouseDown={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-0.5 sm:gap-2 px-1.5 sm:px-4 py-0.5 sm:py-2 bg-amber-200/50 border border-amber-700/40 rounded hover:bg-amber-200/70 transition-colors"
+                className="inline-flex items-center gap-0.5 sm:gap-2 px-1.5 sm:px-2 md:px-2 py-0.5 sm:py-1 bg-amber-200/50 border border-amber-700/40 rounded hover:bg-amber-200/70 transition-colors"
               >
                 <Icon name="scroll" className="w-1.5 h-1.5 sm:w-3 sm:h-3 text-amber-700" />
                 <span className="font-masonic text-amber-800 text-[5px] sm:text-[10px] tracking-wider">

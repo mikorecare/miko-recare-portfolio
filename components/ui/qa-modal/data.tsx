@@ -107,12 +107,12 @@ export const qaDatabase: Record<
         endFrame: 8,
       },
       {
-        text: "At Highly Succeed, I converted React portals to Next.js 15 with TypeScript.",
+        text: "At Highly Succeed, I've built and maintained full-stack applications using Next.js 15, TypeScript, Express.js APIs, and PostgreSQL/NoSQL — handling everything from UI to database design.",
         animationSet: "raising-finger",
         endFrame: 8,
       },
       {
-        text: "At Zyllem, I upgraded Angular from v7 to v18 and saved costs with custom calendars.",
+        text: "At Zyllem, I upgraded Angular from v7 to v18, fixed bugs, created new features, participated in code reviews, and saved costs with custom calendar views.",
         animationSet: "raising-finger",
         endFrame: 8,
       },

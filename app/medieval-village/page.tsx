@@ -62,6 +62,9 @@ export default function MedievalVillage() {
     { x: number; z: number; width: number; height: number }[]
   >([{ x: -15, z: 22, width: 50, height: 40 }]);
 
+  const [showComingSoonModal, setShowComingSoonModal] = useState(true);
+  const [timerCountdown, setTimerCountdown] = useState(10);
+
   const setupAudio = () => {
     audioRef.current = new Audio("/village.mp3");
     audioRef.current.loop = true;
@@ -229,6 +232,23 @@ export default function MedievalVillage() {
   };
 
   useEffect(() => {
+    if (!showComingSoonModal) return;
+
+    const timer = setInterval(() => {
+      setTimerCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          window.location.href = "/";
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [showComingSoonModal]);
+
+  useEffect(() => {
     initScene();
     setupAudio();
 
@@ -393,8 +413,8 @@ export default function MedievalVillage() {
       <div className="fixed top-4 left-1/2 -translate-x-1/2 z-9999 pointer-events-none">
         <div className="bg-black/80 backdrop-blur-md border-2 border-amber-700 rounded-lg px-6 py-3 shadow-lg">
           <p className="font-masonic text-amber-400 text-sm tracking-wider flex gap-2">
-            <Icon name="blacksmith" /> HEARKEN, TRAVELER! THIS REALM IS STILL BEING FORGED IN THE FIRES
-            OF CREATION. <Icon name="blacksmith" />
+            <Icon name="blacksmith" /> HEARKEN, TRAVELER! THIS REALM IS STILL
+            BEING FORGED IN THE FIRES OF CREATION. <Icon name="blacksmith" />
           </p>
           <p className="font-masonic text-amber-600/80 text-xs tracking-wider text-center mt-1">
             More wonders shall manifest with each passing moon
@@ -505,6 +525,76 @@ export default function MedievalVillage() {
         monster={selectedMonster}
         onClose={() => setSelectedMonster(null)}
       />
+
+      {showComingSoonModal && (
+        <div className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/90 backdrop-blur-md">
+          <div className="relative bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900 border-2 border-amber-700 rounded-lg max-w-md w-full mx-4 p-8 shadow-2xl">
+            {/* Decorative corners */}
+            <div className="absolute top-2 left-2 text-amber-700/40 text-xl">
+              ❧
+            </div>
+            <div className="absolute top-2 right-2 text-amber-700/40 text-xl">
+              ❧
+            </div>
+            <div className="absolute bottom-2 left-2 text-amber-700/40 text-xl">
+              ❦
+            </div>
+            <div className="absolute bottom-2 right-2 text-amber-700/40 text-xl">
+              ❦
+            </div>
+
+            {/* Icon */}
+            <div className="flex justify-center mb-4">
+              <div className="w-20 h-20 rounded-full bg-amber-900/30 border-2 border-amber-700 flex items-center justify-center">
+                <span className="text-5xl">🏗️</span>
+              </div>
+            </div>
+
+            {/* Title */}
+            <h2 className="font-masonic text-2xl text-amber-400 text-center tracking-wider mb-3">
+              THE FORGE AWAITS
+            </h2>
+
+            {/* Message */}
+            <p className="font-masonic text-stone-300 text-center text-sm mb-6">
+              This realm is currently being forged in the fires of creation.
+              <br />
+              <span className="text-amber-600">
+                Greater wonders shall manifest soon...
+              </span>
+            </p>
+
+            {/* Divider */}
+            <div className="flex justify-center items-center gap-3 mb-6">
+              <div className="w-16 h-px bg-gradient-to-r from-transparent to-amber-700/50"></div>
+              <span className="text-amber-700/40 text-xs">✦ ✦ ✦</span>
+              <div className="w-16 h-px bg-gradient-to-l from-transparent to-amber-700/50"></div>
+            </div>
+
+            {/* Timer */}
+            <p className="text-center text-amber-500 font-masonic text-lg mb-4">
+              Returning to the keep in{" "}
+              <span className="font-bold text-amber-300">{timerCountdown}</span>
+              ...
+            </p>
+
+            {/* Button */}
+            <button
+              onClick={() => {
+                window.location.href = "/";
+              }}
+              className="w-full py-3 bg-amber-900/40 border-2 border-amber-700 rounded-lg text-amber-400 font-masonic tracking-wider hover:bg-amber-800/60 hover:border-amber-500 transition-all duration-300"
+            >
+              ⚔ RETURN NOW ⚔
+            </button>
+
+            {/* Footer */}
+            <p className="text-center text-stone-500 text-[10px] font-masonic mt-4 tracking-wider">
+              ~ The ancient codex shall reveal more in time ~
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
