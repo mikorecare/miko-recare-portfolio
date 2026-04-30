@@ -1,12 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Icon from "@/components/icons";
 import QAModal from "@/components/ui/qa-modal";
 
 export default function QASection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedQuestion, setSelectedQuestion] = useState("");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const questions = [
     "Who am I?",
@@ -45,20 +51,29 @@ export default function QASection() {
                   setSelectedQuestion(q.toLowerCase());
                   setIsModalOpen(true);
                 }}
-                className="text-left px-4 py-3 border-l-4 border-amber-600/50 bg-amber-900/20 hover:bg-amber-900/40 text-amber-400 font-masonic text-sm transition-all hover:translate-x-1"
+                className="group text-left px-4 py-3 border-l-4 border-amber-600/50 bg-amber-900/20 hover:bg-amber-900/40 text-amber-400 font-masonic text-sm transition-all hover:translate-x-1 cursor-pointer"
               >
-                ✦ {q}
+                <div className="flex items-center justify-between gap-2">
+                  <span>✦ {q}</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity text-amber-300 text-lg">
+                    →
+                  </span>
+                </div>
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      <QAModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        question={selectedQuestion}
-      />
+      {mounted &&
+        createPortal(
+          <QAModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            question={selectedQuestion}
+          />,
+          document.body,
+        )}
     </>
   );
 }

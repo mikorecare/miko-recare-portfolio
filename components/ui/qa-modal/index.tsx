@@ -168,7 +168,7 @@ export default function QAModal({ isOpen, onClose, question }: QAModalProps) {
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md animate-fade-in">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md animate-fade-in">
       <div className="relative max-w-2xl w-full mx-4">
         <button
           onClick={onClose}

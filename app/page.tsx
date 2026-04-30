@@ -6,7 +6,6 @@ import NavigationHeader from "@/components/navigation";
 import QASection from "@/components/qa-section";
 
 export default function Home() {
-
   return (
     <main className="relative">
       <NavigationHeader />
@@ -89,8 +88,24 @@ export default function Home() {
 
       {/* Download CV Button - Below Q&A Section */}
       <div className="relative z-31 flex justify-center">
-          <DownloadCV />
+        <DownloadCV />
       </div>
+
+      <footer className="mt-16 pt-6 pb-4 border-t-2 border-amber-700/30">
+        <div className="container mx-auto px-4 text-center">
+          <div className="flex justify-center gap-4 mb-3 text-amber-600/40 text-xs">
+            <span className="font-masonic">✦</span>
+            <span className="font-masonic">✧</span>
+            <span className="font-masonic">✦</span>
+          </div>
+          <p className="text-amber-500/50 font-masonic text-[11px] tracking-wide">
+            Forged in code · Honored by the realm
+          </p>
+          <p className="text-amber-600/30 font-masonic text-[9px] mt-2">
+            © Miko Recare {new Date().getFullYear()} · All relics reserved
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }
