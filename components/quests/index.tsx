@@ -502,17 +502,35 @@ export default function DungeonExplorer() {
 
             <div className="text-amber-600 text-6xl animate-pulse">⚔️</div>
 
-            <button
-              onClick={handleStart}
-              className="group relative px-8 py-3 rounded-lg font-masonic text-lg transition-all duration-300 cursor-pointer bg-gradient-to-r from-amber-700 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-white shadow-lg hover:shadow-amber-700/50"
-            >
-              <span className="relative z-10 flex items-center gap-3">
-                <span>◀</span>
-                <span>ENTER MY WORLD</span>
-                <span>▶</span>
-              </span>
-              <div className="absolute inset-0 rounded-lg bg-amber-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
-            </button>
+            {/* Enter My World Button */}
+            <div className="flex flex-col items-center gap-4">
+              {/* Enter My World Button */}
+              <button
+                onClick={handleStart}
+                className="group relative px-8 py-3 rounded-lg font-masonic text-lg transition-all duration-300 cursor-pointer bg-gradient-to-r from-amber-700 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-white shadow-lg hover:shadow-amber-700/50"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  <span>◀</span>
+                  <span>ENTER MY WORLD</span>
+                  <span>▶</span>
+                </span>
+                <div className="absolute inset-0 rounded-lg bg-amber-400 opacity-0 group-hover:opacity-20 transition-all duration-300" />
+              </button>
+
+              {/* Exit Button - Enter the Keep */}
+              <button
+                onClick={() =>
+                  showWarpPromptWithExit("start", () => {
+                    setShowWarpPrompt(null);
+                    router.push("/");
+                  })
+                }
+                className="group relative px-8 py-3 rounded-lg font-masonic text-lg transition-all duration-300 cursor-pointer bg-gradient-to-r from-gray-700 to-gray-400 hover:from-gray-500 hover:to-gray-300 text-white shadow-lg hover:shadow-gray-700/50"
+              >
+                LEAVE
+                <div className="absolute inset-0 rounded-lg bg-red-400 opacity-0 group-hover:opacity-20 transition-all duration-300 pointer-events-none" />
+              </button>
+            </div>
 
             <div className="space-y-1 pt-4">
               <p className="font-masonic text-amber-400/60 text-xs tracking-wider">
@@ -542,7 +560,7 @@ export default function DungeonExplorer() {
               alt="Portal"
               width={200}
               height={200}
-              className="w-48 h-48 object-contain"
+              className="w-48 h-48 object-contain mx-auto"
               loading="eager"
             />
             <p className="font-reactor7 text-cyan-100 text-lg mb-6">

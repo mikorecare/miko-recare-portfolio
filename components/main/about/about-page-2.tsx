@@ -33,10 +33,12 @@ export default function AboutPage2() {
   ];
 
   return (
-    <div className="flex flex-col justify-center h-full w-full p-1 sm:p-2">
-      <p className="font-masonic text-[4px] sm:text-sm text-stone-600 text-center md:mb-4">
+    <div className="flex flex-col justify-start h-full w-full p-1 sm:p-4">
+      <p className="font-masonic text-[4px] md:text-sm text-stone-600 text-center">
         ✧ THE ARSENAL ✧
       </p>
+
+      <div className="w-4 sm:w-24 h-px bg-amber-700/30 my-0.5 sm:my-4 mx-auto"></div>
 
       <div className="space-y-2 sm:space-y-3 my-0.5 sm:my-2">
         {sections.map((section) => (

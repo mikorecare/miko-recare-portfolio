@@ -20,7 +20,7 @@ export default function Experience({
   const paginatedExperiences = experiencesToShow.slice(startIndex, endIndex);
 
   return (
-    <div className="flex flex-col justify-start h-full w-full p-1 sm:p-6 overflow-y-auto">
+    <div className="flex flex-col justify-start h-full w-full p-1 md:p-4 overflow-y-auto">
       <p className="font-masonic text-[5px] sm:text-sm text-stone-600 text-center">
         ✧ THE JOURNEY ✧
       </p>
@@ -39,11 +39,11 @@ export default function Experience({
                 <h2 className="font-masonic text-amber-800 text-[6px] sm:text-xs md:text-sm font-bold tracking-wider">
                   {exp.title}
                 </h2>
-                <span className="font-masonic text-stone-500 text-[4px] sm:text-[6px] md:text-xs bg-amber-200/50 px-1 sm:px-2 py-0.5 rounded whitespace-nowrap">
+                <span className="font-masonic text-stone-500 text-[4px] sm:text-[6px] md:text-[9px] bg-amber-200/50 px-1 sm:px-2 py-0.5 rounded whitespace-nowrap">
                   {exp.period}
                 </span>
               </div>
-              <p className="font-masonic text-amber-700 text-[5px] sm:text-[8px] md:text-xs font-semibold mt-0.5">
+              <p className="font-masonic text-amber-700 text-[5px] sm:text-[6px] md:text-[9px] font-semibold mt-0.5">
                 {exp.role}
               </p>
             </div>
@@ -85,13 +85,13 @@ export default function Experience({
                     <span
                       key={idx}
                       className="group relative inline-flex items-center gap-0.5 sm:gap-1
-                   px-1 sm:px-2 py-0.5 sm:py-1 rounded-md
+                   px-0.5 md:px-1 py-0.5 sm:py-1 rounded-md
                    bg-gradient-to-br from-amber-100 to-amber-50
                    dark:from-amber-200/80 dark:to-amber-100/60
                    border border-amber-600/40 hover:border-amber-600/80
                    shadow-sm hover:shadow-md
                    transition-all duration-200 hover:-translate-y-0.5
-                   font-poppins text-[4px] sm:text-[6px] tracking-wider"
+                   font-poppins text-[4px] md:text-[9px] tracking-wider"
                     >
                       {/* Skill text */}
                       <span className="text-amber-900 dark:text-amber-950 font-semibold">

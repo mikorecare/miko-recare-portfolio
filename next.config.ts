@@ -75,16 +75,17 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' 'unsafe-inline' 'unsafe-eval';
+              script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:;
               style-src 'self' 'unsafe-inline';
               img-src 'self' data: https: blob:;
               font-src 'self' data:;
-              connect-src 'self' https: wss:;
+              connect-src 'self' https: wss: blob:;
               media-src 'self' https: blob:;
               object-src 'none';
               base-uri 'self';
               form-action 'self';
               frame-ancestors 'none';
+              worker-src 'self' blob:;
             `.replace(/\s{2,}/g, ' ').trim(),
           },
         ],

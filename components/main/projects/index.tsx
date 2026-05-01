@@ -20,7 +20,7 @@ export default function Projects({
 
   return (
     <div className="flex flex-col justify-start h-full w-full p-1 sm:p-4 overflow-y-auto">
-      <p className="font-masonic text-[5px] sm:text-xs md:text-sm text-stone-600 text-center pt-1 sm:pt-20 md:pt-20">
+     <p className="font-masonic text-[4px] md:text-sm text-stone-600 text-center">
         ✧ LEGENDARY QUESTS ✧
       </p>
 
