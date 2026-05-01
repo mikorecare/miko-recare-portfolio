@@ -55,7 +55,8 @@ export default function NavigationHeader() {
           />
         </Link>
 
-        <Link
+        {/* TODO*/}
+        {/* <Link
           href="/medieval-village"
           className="transition-transform hover:scale-105"
         >
@@ -66,7 +67,7 @@ export default function NavigationHeader() {
             height={60}
             className="h-8 md:h-10 w-auto"
           />
-        </Link>
+        </Link> */}
       </div>
     </nav>
   );
