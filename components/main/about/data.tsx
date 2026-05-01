@@ -21,11 +21,9 @@ export const mainStacks = [
 ];
 
 export const cloudAndDevOps = [
-  "AWS EC2",
-  "AWS S3",
+  "AWS",
   "Azure",
   "GCP",
-  "Elastic Beanstalk",
   "Docker",
 ];
 

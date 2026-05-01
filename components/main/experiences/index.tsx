@@ -70,7 +70,7 @@ export default function Experience({
                     {exp.projects.map((project, idx) => (
                       <span
                         key={idx}
-                        className="font-masonic text-stone-600 text-[4px] sm:text-[7px] border border-amber-700/30 px-1 sm:px-1.5 py-0.5 rounded-full bg-amber-100/70"
+                        className="font-poppins text-stone-600 text-[4px] sm:text-[7px] border border-amber-700/30 px-1 sm:px-1.5 py-0.5 rounded-full bg-amber-100/70"
                       >
                         {project}
                       </span>
@@ -91,7 +91,7 @@ export default function Experience({
                    border border-amber-600/40 hover:border-amber-600/80
                    shadow-sm hover:shadow-md
                    transition-all duration-200 hover:-translate-y-0.5
-                   font-masonic text-[4px] sm:text-[6px] tracking-wider"
+                   font-poppins text-[4px] sm:text-[6px] tracking-wider"
                     >
                       {/* Skill text */}
                       <span className="text-amber-900 dark:text-amber-950 font-semibold">

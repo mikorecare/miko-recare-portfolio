@@ -47,7 +47,7 @@ export default function CertificationCard({
             {cert.skills.map((skill, idx) => (
               <span
                 key={idx}
-                className="font-masonic text-amber-600/50 text-[4px] sm:text-[6px] tracking-wider"
+                className="font-poppins text-amber-600/70 text-[4px] sm:text-[8px] tracking-wider"
               >
                 ✦ {skill}
               </span>

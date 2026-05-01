@@ -99,7 +99,7 @@ export default function Projects({
                    border border-amber-600/40 hover:border-amber-600/80
                    shadow-sm hover:shadow-md
                    transition-all duration-200 hover:-translate-y-0.5
-                   font-masonic text-[3px] sm:text-[10px] tracking-wider
+                   font-poppins text-[3px] sm:text-[10px] tracking-wider
                    text-amber-900 dark:text-amber-950 font-medium"
                     >
                       <span className="text-amber-700 text-[2px] sm:text-[6px]">
