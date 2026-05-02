@@ -19,10 +19,10 @@ export const mainStacks = [
   { icon: "expressjs", name: "Express" },
   { icon: "threejs", name: "Three.js" },
   { icon: "deepseek", name: "AI Assisted" },
-  {icon: "mongodb", name: "MongoDB"},
-  {icon: "postgresql", name: "PostgreSQL"},
-  {icon: "typeorm", name: "Type ORM"},
-  {icon: "postman", name: "Postman"}
+  { icon: "mongodb", name: "MongoDB" },
+  { icon: "postgresql", name: "PostgreSQL" },
+  { icon: "typeorm", name: "Type ORM" },
+  { icon: "postman", name: "Postman" },
 ];
 
 export const cloudAndDevOps = [
@@ -30,6 +30,9 @@ export const cloudAndDevOps = [
   { icon: "azure", name: "Azure" },
   { icon: "gcloud", name: "GCP" },
   { icon: "docker", name: "Docker" },
+  { icon: "cloudflare", name: "Cloud Flare" },
+  { icon: "supabase", name: "Supabase" },
+  { icon: "firebase", name: "Firebase" },
 ];
 
 export const stylingAndDesign = [

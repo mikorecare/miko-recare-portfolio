@@ -18,16 +18,6 @@ export const experiences = [
       "Mobile App Development - Flutter enhancements",
       "NextSys IT Solutions Website",
     ],
-    skills: [
-      "React.js",
-      "Next.js 15 - 16",
-      "TypeScript",
-      "Express.js",
-      "Node.js",
-      "Flutter",
-      "RESTful APIs",
-      "Socket.io",
-    ],
   },
   {
     title: "Nuclear Brain",
@@ -42,13 +32,6 @@ export const experiences = [
       "Schema Refactoring",
       "Query Performance Tuning",
     ],
-    skills: [
-      "Node.js",
-      "Express.js",
-      "TypeScript",
-      "Database Optimization",
-      "MongoDB",
-    ],
   },
   {
     title: "Zyllem",
@@ -62,15 +45,8 @@ export const experiences = [
       "Angular 7→18 Upgrade",
       "Custom Calendar Component",
       "Code Review System",
-    ],
-    skills: [
-      "Angular",
-      "TypeScript",
-      "JavaScript",
-      "RESTful APIs",
-      "Git",
-      "Jira",
-      "Svelte",
+      "Bug Fixes",
+      "Reusable Components"
     ],
   },
   {
@@ -86,16 +62,7 @@ export const experiences = [
       "Unlayer API Integration",
       "Email List Segmentation",
       "AWS Deployment",
-    ],
-    skills: [
-      "Angular",
-      "Express.js",
-      "TypeScript",
-      "Socket.io",
-      "AWS EC2",
-      "AWS S3",
-      "Unlayer API",
-      "Angular Material",
+      "Real-time Sending Progress"
     ],
   },
   {
@@ -110,8 +77,7 @@ export const experiences = [
       "Mobile App UI Design",
       "Customer Chat Feature",
       "Photo Upload Functionality",
-      "Admin Web App Support"
+      "Admin Web App Support",
     ],
-    skills: ["Angular", "Flutter", "Mobile Development", "UI/UX Design"],
   },
 ];

@@ -95,49 +95,19 @@ export default function Experience({
 
               {exp.projects && exp.projects.length > 0 && (
                 <div>
-                  <p className="font-masonic text-amber-700 text-[5px] sm:text-[8px] tracking-wider font-semibold">
+                  <p className="font-masonic text-amber-700 text-[5px] sm:text-[9px] tracking-wider font-semibold">
                     Key Quests:
                   </p>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {exp.projects.map((project, idx) => (
                       <span
                         key={idx}
-                        className="font-poppins text-stone-600 text-[4px] sm:text-[7px] border border-amber-700/30 px-1 sm:px-1.5 py-0.5 rounded-full bg-amber-100/70"
+                        className="font-poppins text-stone-600 text-[4px] sm:text-[10px] border border-amber-700/30 px-1 sm:px-1.5 py-0.5 rounded-full bg-amber-100/70"
                       >
                         {project}
                       </span>
                     ))}
                   </div>
-                </div>
-              )}
-
-              {exp.skills && exp.skills.length > 0 && (
-                <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-1 sm:mt-2">
-                  {exp.skills.map((skill, idx) => (
-                    <span
-                      key={idx}
-                      title={skill}
-                      className="group relative inline-flex items-center gap-0.5 sm:gap-1
-                        px-0.5 md:px-1 py-0.5 sm:py-1 rounded-md
-                        bg-gradient-to-br from-amber-100 to-amber-50
-                        dark:from-amber-200/80 dark:to-amber-100/60
-                        border border-amber-600/40 hover:border-amber-600/80
-                        shadow-sm hover:shadow-md
-                        transition-all duration-200 hover:-translate-y-0.5
-                        font-poppins text-[4px] md:text-[9px] tracking-wider"
-                    >
-                      <StackIcon
-                        name={getSkillIcon(skill)}
-                        className="w-2 h-2 sm:w-3 sm:h-3"
-                      />
-
-                      {/* Hover glow effect */}
-                      <span
-                        className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 
-                          bg-amber-400/20 blur-sm transition-opacity duration-300 pointer-events-none"
-                      />
-                    </span>
-                  ))}
                 </div>
               )}
             </div>
