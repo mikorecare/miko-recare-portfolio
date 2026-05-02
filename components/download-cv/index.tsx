@@ -163,7 +163,7 @@ export default function DownloadCV() {
             {/* Scroll Image - The button itself */}
             <div className="relative w-64 h-80 sm:w-80 sm:h-96 max-w-[80vw] max-h-[50vh]">
               <img
-                src="/scrolls/scroll-download.png"
+                src="/scrolls/scroll-download.webp"
                 alt="Click to Download CV"
                 className="w-full h-full object-contain relative z-10 transition-all duration-300 group-hover:brightness-110"
               />

@@ -11,7 +11,7 @@ export default function InsideCover() {
       
       <div className="w-12 sm:w-24 h-12 sm:h-24 border border-amber-700/30 sm:border-2 rounded-full flex items-center justify-center my-1 sm:my-4 overflow-hidden shadow-sm sm:shadow-md">
         <Image
-          src="/me.png"
+          src="/me.webp"
           alt="Miko Recare"
           width={96}
           height={96}

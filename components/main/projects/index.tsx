@@ -76,6 +76,16 @@ export default function Projects({
                     <h3 className="font-masonic text-amber-800 text-[3px] sm:text-[8px] md:text-xs font-bold tracking-wider">
                       {project.name}
                     </h3>
+                  
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-1.5 sm:p-3 pt-0 border-t border-amber-700/20 space-y-1 sm:space-y-2">
+                  <p className="font-georgia text-amber-700/80 text-[4px] sm:text-xs tracking-wider">
+                    {project.description}
+                  </p>
+
                     {project.links && project.links.length > 0 && (
                       <div className="flex gap-1 sm:gap-2">
                         {project.links.map((link, linkIdx) => (
@@ -85,7 +95,7 @@ export default function Projects({
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="font-georgia text-amber-500 hover:text-amber-300 text-[6px] sm:text-[9px] md:text-[11px] tracking-wider whitespace-nowrap transition-all duration-200 inline-block font-semibold animate-pulse"
+                            className="font-georgia text-amber-500 hover:text-amber-300 text-[6px] sm:text-[9px] md:text-[11px] tracking-wider whitespace-nowrap  inline-block font-semibold"
                             style={{
                               textShadow: "0 0 8px rgba(245, 158, 11, 0.8)",
                             }}
@@ -95,14 +105,6 @@ export default function Projects({
                         ))}
                       </div>
                     )}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-1.5 sm:p-3 pt-0 border-t border-amber-700/20 space-y-1 sm:space-y-2">
-                  <p className="font-georgia text-amber-700/80 text-[4px] sm:text-xs tracking-wider">
-                    {project.description}
-                  </p>
 
                   {/* Crystal Vision Container - changes based on isMobile flag */}
                   {hasScreenshots && currentScreenshot && (

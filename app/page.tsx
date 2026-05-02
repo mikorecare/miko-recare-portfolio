@@ -13,7 +13,7 @@ export default function Home() {
       <div
         className="relative z-10 pt-1 sm:pt-15 md:pt-20"
         style={{
-          backgroundImage: `url('/book-portfolio-bg.png')`,
+          backgroundImage: `url('/book-portfolio-bg.webp')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

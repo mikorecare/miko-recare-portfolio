@@ -196,15 +196,15 @@ export const projects: Project[] = [
         url: "https://play.google.com/store/apps/details?id=com.hs.unleash",
       },
     ],
-    isMobile: true
+    isMobile: true,
   },
   {
     name: "Unleash Landing Page - unleash.ph (old and new)",
     description:
       "Modern e-commerce landing page with product showcase and conversion-focused design.",
     screenshots: [
-      "/projects/unleash/unleash-new.webp",
       "/projects/unleash/unleash-old.webp",
+      "/projects/unleash/unleash-new.webp",
     ],
     highlights: [
       "Product showcase",

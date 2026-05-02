@@ -15,7 +15,7 @@ export default function ArmorerNotesLayout({
       <div
         className="fixed inset-0 z-0"
         style={{
-          backgroundImage: `url('/bg-notes.png')`,
+          backgroundImage: `url('/bg-notes.webp')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

@@ -21,6 +21,50 @@ export default function BookPortfolio() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const flipBookRef = useRef<any>(null);
+  const audioRefs = useRef<HTMLAudioElement[]>([]);
+  const [soundsLoaded, setSoundsLoaded] = useState(false);
+
+  // Sound files
+  const soundFiles = [
+    "/book-mp3/page-flip-01a.mp3",
+    "/book-mp3/page-flip-02.mp3",
+    "/book-mp3/page-flip-03.mp3",
+    "/book-mp3/page-flip-4.mp3",
+  ];
+
+  // Preload sounds
+  const preloadSounds = async () => {
+    const promises = soundFiles.map((src, index) => {
+      return new Promise((resolve) => {
+        const audio = new Audio();
+        audio.src = src;
+        audio.preload = "auto";
+        audioRefs.current[index] = audio;
+        audio.oncanplaythrough = () => resolve(true);
+        audio.onerror = () => {
+          console.warn(`Failed to load sound: ${src}`);
+          resolve(false);
+        };
+      });
+    });
+    await Promise.all(promises);
+    setSoundsLoaded(true);
+  };
+
+  // Play random page flip sound
+  const playRandomPageFlipSound = () => {
+    if (!soundsLoaded || audioRefs.current.length === 0) return;
+
+    const randomIndex = Math.floor(Math.random() * audioRefs.current.length);
+    const audio = audioRefs.current[randomIndex];
+
+    if (audio) {
+      // Clone the audio to allow overlapping sounds if needed
+      const soundClone = audio.cloneNode() as HTMLAudioElement;
+      soundClone.volume = 0.5; // Set volume to 50%
+      soundClone.play().catch((err) => console.warn("Audio play failed:", err));
+    }
+  };
 
   useEffect(() => {
     const loadAssets = async () => {
@@ -58,6 +102,7 @@ export default function BookPortfolio() {
       let loaded = 0;
       const totalImages = imagesToPreload.length;
 
+      // Preload images
       const preloadPromises = imagesToPreload.map((src) => {
         return new Promise((resolve) => {
           const img = new Image();
@@ -76,6 +121,10 @@ export default function BookPortfolio() {
       });
 
       await Promise.all(preloadPromises);
+
+      // Preload sounds
+      await preloadSounds();
+
       setTimeout(() => {
         setIsLoading(false);
       }, 500);
@@ -87,12 +136,14 @@ export default function BookPortfolio() {
   const nextPage = () => {
     if (flipBookRef.current) {
       flipBookRef.current.pageFlip().flipNext();
+      playRandomPageFlipSound();
     }
   };
 
   const prevPage = () => {
     if (flipBookRef.current) {
       flipBookRef.current.pageFlip().flipPrev();
+      playRandomPageFlipSound();
     }
   };
 
@@ -123,6 +174,11 @@ export default function BookPortfolio() {
           <p className="text-amber-600/60 text-xs font-masonic mt-2">
             {loadingProgress}% complete
           </p>
+          {soundsLoaded && (
+            <p className="text-amber-600/40 text-[10px] font-masonic mt-2">
+              ✦ Ancient scrolls prepared ✦
+            </p>
+          )}
         </div>
       </motion.div>
     );
@@ -132,7 +188,6 @@ export default function BookPortfolio() {
     <div className="relative z-20">
       {/* Book Section - Centered with side buttons */}
       <div className="h-screen flex items-center justify-center relative px-4">
-        {/* Left Button - Positioned on the left side of the book */}
         {/* Left Button - Positioned on the left side of the book (desktop) / below (mobile) */}
         <button
           onClick={prevPage}

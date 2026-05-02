@@ -25,8 +25,8 @@ export const metadata: Metadata = {
   description:
     "Full-Stack Developer | React | Angular | NestJS | Three.js | Medieval-themed 3D Portfolio",
   icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
+    icon: "/icon.webp",
+    apple: "/icon.webp",
   },
 };
 

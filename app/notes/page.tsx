@@ -139,7 +139,7 @@ export default function ArmorerNotesPage() {
         {/* Scroll Image */}
         <div className="w-64 h-80 sm:w-80 sm:h-96 max-w-[80vw] max-h-[50vh] relative">
           <img
-            src={`/scrolls/scroll-${currentFrame}.png`}
+            src={`/scrolls/scroll-${currentFrame}.webp`}
             alt="Scroll"
             className="w-full h-full object-contain relative z-10"
           />
