@@ -1,5 +1,6 @@
 "use client";
 
+import StackIcon from "tech-stack-icons";
 import Icon from "@/components/icons";
 import { experiences as allExperiences } from "./data";
 
@@ -18,6 +19,37 @@ export default function Experience({
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedExperiences = experiencesToShow.slice(startIndex, endIndex);
+
+  // Map skill names to their corresponding icons (same as Arsenal data naming convention)
+  const getSkillIcon = (skillName: string) => {
+    const iconMap: Record<string, string> = {
+      "React.js": "react",
+      "Next.js 15 - 16": "nextjs",
+      "Next.js": "nextjs",
+      TypeScript: "typescript",
+      "Express.js": "expressjs",
+      "Node.js": "nodejs",
+      Flutter: "flutter",
+      Angular: "angular",
+      JavaScript: "js",
+      MongoDB: "mongodb",
+      PostgreSQL: "postgresql",
+      "RESTful APIs": "swagger",
+      "Socket.io": "socketio",
+      Git: "git",
+      Jira: "jira",
+      Svelte: "sveltejs",
+      "AWS EC2": "aws",
+      "AWS S3": "aws",
+      "Angular Material": "angular17",
+      "Unlayer API": "prettier",
+      "Database Optimization": "sqldeveloper",
+      "Schema Refactoring": "sqldeveloper",
+      "Mobile Development": "flutter",
+      "UI/UX Design": "figma",
+    };
+    return iconMap[skillName] || "code";
+  };
 
   return (
     <div className="flex flex-col justify-start h-full w-full p-1 md:p-4 overflow-y-auto">
@@ -84,24 +116,25 @@ export default function Experience({
                   {exp.skills.map((skill, idx) => (
                     <span
                       key={idx}
+                      title={skill}
                       className="group relative inline-flex items-center gap-0.5 sm:gap-1
-                   px-0.5 md:px-1 py-0.5 sm:py-1 rounded-md
-                   bg-gradient-to-br from-amber-100 to-amber-50
-                   dark:from-amber-200/80 dark:to-amber-100/60
-                   border border-amber-600/40 hover:border-amber-600/80
-                   shadow-sm hover:shadow-md
-                   transition-all duration-200 hover:-translate-y-0.5
-                   font-poppins text-[4px] md:text-[9px] tracking-wider"
+                        px-0.5 md:px-1 py-0.5 sm:py-1 rounded-md
+                        bg-gradient-to-br from-amber-100 to-amber-50
+                        dark:from-amber-200/80 dark:to-amber-100/60
+                        border border-amber-600/40 hover:border-amber-600/80
+                        shadow-sm hover:shadow-md
+                        transition-all duration-200 hover:-translate-y-0.5
+                        font-poppins text-[4px] md:text-[9px] tracking-wider"
                     >
-                      {/* Skill text */}
-                      <span className="text-amber-900 dark:text-amber-950 font-semibold">
-                        {skill}
-                      </span>
+                      <StackIcon
+                        name={getSkillIcon(skill)}
+                        className="w-2 h-2 sm:w-3 sm:h-3"
+                      />
 
                       {/* Hover glow effect */}
                       <span
                         className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 
-                         bg-amber-400/20 blur-sm transition-opacity duration-300 pointer-events-none"
+                          bg-amber-400/20 blur-sm transition-opacity duration-300 pointer-events-none"
                       />
                     </span>
                   ))}

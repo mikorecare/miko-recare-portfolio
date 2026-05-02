@@ -1,12 +1,13 @@
 "use client";
 
-import Icon from "@/components/icons";
+import StackIcon from "tech-stack-icons";
 import {
   mainStacks,
   cloudAndDevOps,
   stylingAndDesign,
   softSkills,
 } from "./data";
+import Icon from "@/components/icons";
 
 export default function AboutPage2() {
   const sections = [
@@ -64,7 +65,8 @@ export default function AboutPage2() {
               <div className="flex flex-wrap gap-1 sm:gap-1.5">
                 {section.items.map((item, idx) => (
                   <span
-                    key={item}
+                    key={`${item.name}-${idx}`}
+                    title={item.name}
                     className="group relative inline-flex items-center gap-0.5 sm:gap-1
                       px-0.5 py-0.5 md:px-1 md:py-1 rounded-md
                       bg-gradient-to-br from-amber-100 to-amber-50
@@ -74,9 +76,10 @@ export default function AboutPage2() {
                       transition-all duration-200 hover:-translate-y-0.5
                       font-poppins text-[5px] md:text-[9px] tracking-wider"
                   >
-                    <span className="text-amber-900 dark:text-amber-950 font-semibold">
-                      {item}
-                    </span>
+                    <StackIcon
+                      name={item.icon}
+                      className="w-2 h-2 sm:w-3 sm:h-3 md:w-4 md:h-4"
+                    />
                     {idx < section.items.length - 1 && (
                       <span className="sm:hidden text-amber-700/50">,</span>
                     )}
