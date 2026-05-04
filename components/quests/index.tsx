@@ -333,14 +333,14 @@ export default function DungeonExplorer() {
               lastWarpTriggerRef.current = now;
               showWarpPromptWithExit("start", () => {
                 setShowWarpPrompt(null);
-                router.push("/");
+                router.push("/medieval-style");
               });
             },
             () => {
               lastWarpTriggerRef.current = now;
               showWarpPromptWithExit("end", () => {
                 setShowWarpPrompt(null);
-                router.push("/medieval-village");
+                router.push("/medieval-style");
               });
             },
           );

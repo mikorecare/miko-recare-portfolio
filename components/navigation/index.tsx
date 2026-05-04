@@ -30,7 +30,7 @@ export default function NavigationHeader() {
     >
       <div className="container mx-auto px-4 flex justify-center items-center gap-4 md:gap-6 flex-wrap">
         <Link
-          href="/"
+          href="/medieval-style"
           className="transition-transform hover:scale-105"
         >
           <Image
@@ -43,7 +43,7 @@ export default function NavigationHeader() {
         </Link>
 
         <Link
-          href="/quests"
+          href="/medieval-style/quests"
           className="transition-transform hover:scale-105"
         >
           <Image

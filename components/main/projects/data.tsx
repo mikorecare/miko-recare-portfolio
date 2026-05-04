@@ -94,6 +94,8 @@ export const projects: Project[] = [
       "Role-based access",
       "Content management",
       "Analytics dashboard",
+      "Point of Sales",
+      "User Management",
     ],
     links: [{ name: "Admin Demo", url: "portal.unleash.ph" }],
   },
@@ -222,11 +224,11 @@ export const projects: Project[] = [
   {
     name: "Medieval Village Explorer",
     description:
-      "A 3D medieval world built with Three.js, featuring two villages, monsters with dialog, and first-person exploration.",
-    screenshots: [], // Add screenshots if available
-    highlights: ["3D environment", "First-person controls", "Interactive NPCs"],
+      "This is my first portfolio ^_^ V",
+    screenshots: ["/projects/medieval/medieval.png",], // Add screenshots if available
+    highlights: ["3D environment", "First-person controls", "Interactive NPCs", "Medieval Style Porfolio and Effects"],
     links: [
-      { name: "Play Demo", url: "#" },
+      { name: "Play Demo", url: "/medieval-style" },
       {
         name: "Source Code",
         url: "https://github.com/mikorecare/miko-recare-portfolio",

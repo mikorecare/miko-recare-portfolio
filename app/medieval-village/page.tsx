@@ -581,7 +581,7 @@ export default function MedievalVillage() {
             {/* Button */}
             <button
               onClick={() => {
-                window.location.href = "/";
+                window.location.href = "/medieval-style";
               }}
               className="w-full py-3 bg-amber-900/40 border-2 border-amber-700 rounded-lg text-amber-400 font-masonic tracking-wider hover:bg-amber-800/60 hover:border-amber-500 transition-all duration-300"
             >
