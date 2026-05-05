@@ -16,8 +16,11 @@ export interface HotZone {
   onClick: () => void;
 }
 
-export const useHotZones = (onBack: () => void, onToggleTheme?: () => void) => {
-  const { showModal } = useModal();
+export const useHotZones = (
+  onBack: () => void,
+  onToggleTheme?: () => void,
+  showModal?: (content: React.ReactNode, options?: any) => void,
+) => {
 
   const hotZones: HotZone[] = [
     {
@@ -59,7 +62,7 @@ export const useHotZones = (onBack: () => void, onToggleTheme?: () => void) => {
         [0.226, 0.36],
       ],
       onClick: () =>
-        showModal(<AwardsModalContent />, {
+        showModal?.(<AwardsModalContent />, {
           title: "AWARDS & RECOGNITION",
           maxWidth: "lg",
         }),
@@ -75,7 +78,7 @@ export const useHotZones = (onBack: () => void, onToggleTheme?: () => void) => {
         [0.064, 1],
       ],
       onClick: () =>
-        showModal(<StacksModalContent />, {
+        showModal?.(<StacksModalContent />, {
           title: "TECH STACKS",
           maxWidth: "xl",
         }),
@@ -115,7 +118,7 @@ export const useHotZones = (onBack: () => void, onToggleTheme?: () => void) => {
         [0.344, 0.61],
       ],
       onClick: () =>
-        showModal(<ExperiencesModalContent />, {
+        showModal?.(<ExperiencesModalContent />, {
           title: "EXPERIENCES",
           maxWidth: "lg",
         }),
@@ -131,7 +134,7 @@ export const useHotZones = (onBack: () => void, onToggleTheme?: () => void) => {
         [0.427, 0.557],
       ],
       onClick: () =>
-        showModal(<ProjectsModalContent />, {
+        showModal?.(<ProjectsModalContent />, {
           title: "PROJECTS HANDLED",
           maxWidth: "lg",
         }),
@@ -147,7 +150,7 @@ export const useHotZones = (onBack: () => void, onToggleTheme?: () => void) => {
         [0.556, 0.58],
       ],
       onClick: () =>
-        showModal(<TrainingsModalContent />, {
+        showModal?.(<TrainingsModalContent />, {
           title: "TRAININGS & CERTIFICATIONS",
           maxWidth: "lg",
         }),

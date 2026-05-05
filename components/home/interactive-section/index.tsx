@@ -17,8 +17,13 @@ interface InteractiveSectionProps {
 const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [image, setImage] = useState<HTMLImageElement | null>(null);
-  const { ModalComponent } = useModal();
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  // ✅ Get modal functions once
+  const { showModal, ModalComponent } = useModal();
+
+  const { typingText, isTyping, startTyping, stopTyping } = useTypingEffect();
+  const { playHoverSound, playOnSound, playOffSound } = useSoundEffects();
 
   const toggleTheme = () => {
     if (!isDarkTheme) {
@@ -29,9 +34,7 @@ const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
     setIsDarkTheme((prev) => !prev);
   };
 
-  const hotZones = useHotZones(onBack, toggleTheme);
-  const { typingText, isTyping, startTyping, stopTyping } = useTypingEffect();
-  const { playHoverSound, playOnSound, playOffSound } = useSoundEffects();
+  const hotZones = useHotZones(onBack, toggleTheme, showModal);
 
   useEffect(() => {
     const img = new Image();
@@ -44,7 +47,6 @@ const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
 
   const canvasRef = useCanvasDrawing(imageLoaded, image, null, hotZones);
 
-  // Now use the ref in the interaction hook
   const { hoveredZone, handleMouseMove, handleClick } = useHotZoneInteraction(
     canvasRef,
     hotZones,
@@ -55,11 +57,10 @@ const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
     (zoneId) => stopTyping(zoneId),
   );
 
-  // Update canvas drawing when hoveredZone changes
+  // Rest of your useEffect and getLabelPosition remain the same...
   useEffect(() => {
     if (!imageLoaded || !image) return;
 
-    // Re-run the drawing effect with the new hoveredZone
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -69,11 +70,9 @@ const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
 
     const { drawX, drawY, drawWidth, drawHeight } = drawRect;
 
-    // Redraw background
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
 
-    // Draw hover effect
     if (hoveredZone) {
       const zone = hotZones.find((z) => z.id === hoveredZone);
       if (zone) {
