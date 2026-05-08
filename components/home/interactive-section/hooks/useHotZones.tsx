@@ -21,7 +21,6 @@ export const useHotZones = (
   onToggleTheme?: () => void,
   showModal?: (content: React.ReactNode, options?: any) => void,
 ) => {
-
   const hotZones: HotZone[] = [
     {
       id: "switch",
@@ -84,7 +83,19 @@ export const useHotZones = (
         }),
     },
     {
-      id: "show_hero",
+      id: "blogs",
+      name: "Blogs",
+      type: "polygon",
+      points: [
+        [0.364, 0.27],
+        [0.42, 0.27],
+        [0.42, 0.374],
+        [0.366, 0.372],
+      ],
+      onClick: () => (window.location.href = "/blogs")
+    },
+    {
+      id: "Show Hero",
       name: "Show Hero",
       type: "polygon",
       points: [

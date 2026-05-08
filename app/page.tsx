@@ -1,21 +1,55 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import HomeHeroSection from "@/components/home/hero";
 import InteractiveSection from "@/components/home/interactive-section";
 
 export default function Home() {
   const [showHero, setShowHero] = useState(true);
+  const [shouldPlayMusic, setShouldPlayMusic] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Initialize audio
+  useEffect(() => {
+    audioRef.current = new Audio("/home/mp3/bg.mp3");
+    audioRef.current.loop = true;
+    audioRef.current.volume = 0.2;
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (shouldPlayMusic && audioRef.current) {
+      audioRef.current.play().catch((err) => {
+        console.log("Play failed:", err);
+      });
+    } else if (!shouldPlayMusic && audioRef.current) {
+      audioRef.current.pause();
+    }
+  }, [shouldPlayMusic]);
+
+  const handleExplore = () => {
+    setShowHero(false);
+    setShouldPlayMusic(true);
+  };
+
+  const handleBack = () => {
+    setShowHero(true);
+    setShouldPlayMusic(false);
+  };
 
   return (
     <div className="relative w-full h-full">
-      {/* InteractiveSection - background layer */}
       <div className="fixed inset-0 z-0">
-        <InteractiveSection onBack={() => setShowHero(true)} />
+        <InteractiveSection onBack={handleBack} />
       </div>
 
-      {/* HeroSection - overlay layer */}
       <AnimatePresence>
         {showHero && (
           <motion.div
@@ -30,7 +64,7 @@ export default function Home() {
             className="fixed inset-0 z-50"
           >
             <HomeHeroSection
-              onExplore={() => setShowHero(false)}
+              onExplore={handleExplore}
               onContact={() =>
                 (window.location.href = "mailto:mikorecare@gmail.com")
               }

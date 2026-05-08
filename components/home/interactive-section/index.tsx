@@ -19,7 +19,6 @@ const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-  // ✅ Get modal functions once
   const { showModal, ModalComponent } = useModal();
 
   const { typingText, isTyping, startTyping, stopTyping } = useTypingEffect();
