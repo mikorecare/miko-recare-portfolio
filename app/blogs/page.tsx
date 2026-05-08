@@ -5,7 +5,7 @@ import { getAllBlogPosts, BlogPost } from "@/lib/blog";
 import { useSession } from "next-auth/react";
 import BlogHeader from "./components/blog-header";
 import BlogCard from "./components/blog-card";
-import CreateBlogModal from "./components/create-blog.modal";
+// import CreateBlogModal from "./components/create-blog.modal";
 import LoginModal from "./components/login.modal";
 
 export default function BlogPage() {
@@ -185,12 +185,12 @@ export default function BlogPage() {
           )}
         </div>
       </div>
-
+      {/* 
       <CreateBlogModal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
         onSuccess={fetchPosts}
-      />
+      /> */}
 
       <LoginModal
         isOpen={isLoginModalOpen}
