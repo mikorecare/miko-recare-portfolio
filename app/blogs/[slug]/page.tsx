@@ -80,13 +80,13 @@ export default function BlogPostPage() {
     <article className="min-h-screen bg-gradient-to-b from-gray-900 to-black overflow-y-auto">
       {/* Hero Section with Cover Image (if available) */}
       {post.cover_image && (
-        <div className="relative h-[50vh] md:h-[60vh] w-full overflow-hidden">
+        <div className="relative h-[50vh] md:h-[60vh] w-full overflow-hidden group">
           <img
             src={post.cover_image}
             alt={post.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-all duration-500 ease-in-out group-hover:object-contain group-hover:scale-100"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent transition-opacity duration-300 group-hover:opacity-50" />
         </div>
       )}
 
