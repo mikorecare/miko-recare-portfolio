@@ -9,15 +9,23 @@ import { useTypingEffect } from "./hooks/useTypingEffect";
 import { useSoundEffects } from "./hooks/useSoundEffects";
 import { useHotZoneInteraction } from "./hooks/useHotZoneInteractions";
 import { HotZone } from "./hooks/useHotZones";
+import NPCGuide from "@/components/ui/npc-guide";
 
 interface InteractiveSectionProps {
   onBack: () => void;
+  onToggleMusic: ()=> void;
 }
 
-const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
+const InteractiveSection = ({ onBack, onToggleMusic }: InteractiveSectionProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [drawRect, setDrawRect] = useState({
+    drawX: 0,
+    drawY: 0,
+    drawWidth: 0,
+    drawHeight: 0,
+  });
 
   const { showModal, ModalComponent } = useModal();
 
@@ -33,7 +41,7 @@ const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
     setIsDarkTheme((prev) => !prev);
   };
 
-  const hotZones = useHotZones(onBack, toggleTheme, showModal);
+  const hotZones = useHotZones(onBack, onToggleMusic, toggleTheme, showModal);
 
   useEffect(() => {
     const img = new Image();
@@ -46,6 +54,23 @@ const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
 
   const canvasRef = useCanvasDrawing(imageLoaded, image, null, hotZones);
 
+  // Get drawRect from canvas
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const updateDrawRect = () => {
+      const rect = (canvas as any).drawRect;
+      if (rect) {
+        setDrawRect(rect);
+      }
+    };
+
+    updateDrawRect();
+    window.addEventListener("resize", updateDrawRect);
+    return () => window.removeEventListener("resize", updateDrawRect);
+  }, [canvasRef, imageLoaded]);
+
   const { hoveredZone, handleMouseMove, handleClick } = useHotZoneInteraction(
     canvasRef,
     hotZones,
@@ -56,7 +81,6 @@ const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
     (zoneId) => stopTyping(zoneId),
   );
 
-  // Rest of your useEffect and getLabelPosition remain the same...
   useEffect(() => {
     if (!imageLoaded || !image) return;
 
@@ -64,10 +88,10 @@ const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-    const drawRect = (canvas as any).drawRect;
-    if (!ctx || !drawRect) return;
+    const drawRectData = (canvas as any).drawRect;
+    if (!ctx || !drawRectData) return;
 
-    const { drawX, drawY, drawWidth, drawHeight } = drawRect;
+    const { drawX, drawY, drawWidth, drawHeight } = drawRectData;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
@@ -115,10 +139,10 @@ const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
 
   const getLabelPosition = (zone: HotZone) => {
     const canvas = canvasRef.current;
-    const drawRect = (canvas as any)?.drawRect;
-    if (!canvas || !drawRect) return { x: 0, y: 0 };
+    const drawRectData = (canvas as any)?.drawRect;
+    if (!canvas || !drawRectData) return { x: 0, y: 0 };
 
-    const { drawX, drawY, drawWidth, drawHeight } = drawRect;
+    const { drawX, drawY, drawWidth, drawHeight } = drawRectData;
 
     if (zone.type === "circle" && zone.cx && zone.cy && zone.r) {
       return {
@@ -154,6 +178,21 @@ const InteractiveSection = ({ onBack }: InteractiveSectionProps) => {
         onMouseMove={handleMouseMove}
         onClick={handleClick}
       />
+
+      {/* NPC Guide - positioned at bottom right of the drawn image */}
+      {drawRect.drawWidth > 0 && (
+        <div
+          className="absolute z-50 max-w-xs"
+          style={{
+            left: drawRect.drawX + drawRect.drawWidth - 300,
+            top: drawRect.drawY + drawRect.drawHeight - 190
+          }}
+        >
+          <div className="w-[300px] h-[220px]">
+            <NPCGuide />
+          </div>
+        </div>
+      )}
 
       {hoveredZone && (
         <div

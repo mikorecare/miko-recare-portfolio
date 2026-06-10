@@ -44,10 +44,17 @@ export default function Home() {
     setShouldPlayMusic(false);
   };
 
+  const handleToggleMusic = () => {
+    setShouldPlayMusic(!shouldPlayMusic);
+  };
+
   return (
     <div className="relative w-full h-full">
       <div className="fixed inset-0 z-0">
-        <InteractiveSection onBack={handleBack} />
+        <InteractiveSection
+          onBack={handleBack}
+          onToggleMusic={handleToggleMusic}
+        />
       </div>
 
       <AnimatePresence>

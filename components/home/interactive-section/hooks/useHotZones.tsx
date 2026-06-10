@@ -18,6 +18,7 @@ export interface HotZone {
 
 export const useHotZones = (
   onBack: () => void,
+  onToggleMusic: () => void,
   onToggleTheme?: () => void,
   showModal?: (content: React.ReactNode, options?: any) => void,
 ) => {
@@ -92,7 +93,7 @@ export const useHotZones = (
         [0.42, 0.374],
         [0.366, 0.372],
       ],
-      onClick: () => (window.location.href = "/blogs")
+      onClick: () => (window.location.href = "/blogs"),
     },
     {
       id: "Show Hero",
@@ -105,6 +106,20 @@ export const useHotZones = (
         [0.443, 0.39],
       ],
       onClick: onBack,
+    },
+    {
+      id: "sound",
+      name: "Toggle Music on/off",
+      type: "polygon",
+      points: [
+        [0.24, 0.782],
+        [0.30, 0.75],
+        [0.321, 0.77],
+        [0.321, 0.86],
+        [0.26, 0.91],
+        [0.239, 0.881],
+      ],
+      onClick: onToggleMusic,
     },
     {
       id: "contact",
