@@ -1,5 +1,19 @@
 export const experiences = [
   {
+    title: "Festive Lighting Pros",
+    role: "Full Stack Web Developer",
+    period: "Jun 2026 - Present · 5 mos",
+    location: "United States · Remote",
+    type: "Full-time",
+    description:
+      "Developing and maintaining web applications and internal business tools. Creating responsive and user-friendly front-end interfaces using modern frameworks. Building and managing APIs, databases, and server-side functionality. Integrating third-party platforms, CRMs, and internal systems to improve operational efficiency. Testing, debugging, optimizing, and securing applications to ensure scalability and performance. Collaborating with operations, marketing, and leadership teams to identify and implement technical solutions. Documenting code, processes, and system architecture to support long-term scalability.",
+    projects: [
+      "Festive LMS – Internal learning and training web app for employees. Core: AI card generator for flashcards, AI quiz generator, AI voice training agent using VAPI, lessons modules.",
+      "Festive Express – Sub-product (to-go version of Festive Lighting Pros). Main contributor. Core: CMS, orders, automation, stunning website. https://festive.express",
+      "Festive HR Portal – Cloned and built an HR portal from an existing SaaS to save leasing costs. Tool for HR and recruiter automation. Core: Jobs, candidates, workflow automation, editable and detachable templates (evaluations, emails, assessments, dynamic questionnaires).",
+    ],
+  },
+  {
     title: "Highly Succeed Inc.",
     role: "Full-Stack Developer",
     period: "Apr 2025 - Apr 2026 · 1 yr 1 mo",
@@ -46,7 +60,7 @@ export const experiences = [
       "Custom Calendar Component",
       "Code Review System",
       "Bug Fixes",
-      "Reusable Components"
+      "Reusable Components",
     ],
   },
   {
@@ -62,7 +76,7 @@ export const experiences = [
       "Unlayer API Integration",
       "Email List Segmentation",
       "AWS Deployment",
-      "Real-time Sending Progress"
+      "Real-time Sending Progress",
     ],
   },
   {

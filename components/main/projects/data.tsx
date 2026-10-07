@@ -10,6 +10,83 @@ interface Project {
 
 export const projects: Project[] = [
   {
+    name: "Festive HR Portal",
+    description:
+      "An end-to-end Applicant Tracking System (ATS) built to replace a paid SaaS subscription — covering the full recruitment lifecycle from job posting to hire. Includes JazzHR-style templating for emails, assessments, and evaluations; calendar-based scheduling comparable to Calendly; a signature maker for offer letters and onboarding docs; and CTM phone integration so calls are logged against the right candidate automatically.",
+    screenshots: [
+      "/projects/festive-hr-portal/b6tpa9t3jt3aberkjj9m.webp",
+      "/projects/festive-hr-portal/basuu3vnfmrpppzn23hr.webp",
+      "/projects/festive-hr-portal/bebarj7ojvkklyhnjceu.webp",
+      "/projects/festive-hr-portal/c7h51tqnqekzuvcuuaet.webp",
+      "/projects/festive-hr-portal/cewfpvuizxreylwtl6p9.webp",
+      "/projects/festive-hr-portal/dwhi2jaywlwodua78zai.webp",
+      "/projects/festive-hr-portal/ehcwnqsgouq8cvwg32o2.webp",
+      "/projects/festive-hr-portal/fettvethdcmr9zcyucki.webp",
+      "/projects/festive-hr-portal/fs0qooksrpwufqu2474p.webp",
+      "/projects/festive-hr-portal/h2jqwjtwqlxbsyziyz5r.webp",
+      "/projects/festive-hr-portal/hxjszvwvin3sjd8g4qur.webp",
+      "/projects/festive-hr-portal/iqfz1b7c4bzlr8vmwkto.webp",
+      "/projects/festive-hr-portal/keho9fas1fodb0irxlp0.webp",
+      "/projects/festive-hr-portal/mtjymrbheckx4wso9tyq.webp",
+      "/projects/festive-hr-portal/nrgnxkr7irvx3bu15pfs.webp",
+      "/projects/festive-hr-portal/pbdzaohm7pn9slolg4fk.webp",
+      "/projects/festive-hr-portal/r2cclnsyngv8kjetybpf.webp",
+      "/projects/festive-hr-portal/seiepg3nxhwvchfrcsfi.webp",
+      "/projects/festive-hr-portal/tjvsjebludrduz1bnonu.webp",
+      "/projects/festive-hr-portal/xyxj0jmcfwhwi5g3pzqy.webp",
+    ],
+    highlights: [
+      "Applicant Tracking System (ATS)",
+      "JazzHR-style Templating (Emails, Assessments, Evaluations)",
+      "Email Automation via Azure Credentials",
+      "Calendly-style Interview Scheduling",
+      "Signature Maker for Offer Letters",
+      "CTM Phone Integration",
+      "Workflow Automation",
+      "Dynamic Questionnaires",
+      "Cost Savings vs. SaaS Licensing",
+    ],
+    links: [
+      {
+        name: "Careers Portal",
+        url: "https://careers.festivelightingpros.com",
+      },
+      {
+        name: "About FLP",
+        url: "https://festivelightingpros.com/about-flp/#meet-the-team",
+      },
+    ],
+  },
+  {
+    name: "Festive Express",
+    description:
+      "A sub-brand of Festive Lighting Pros — a to-go style ordering platform with a full CMS, order management, and automation pipeline. Designed and built the customer-facing storefront end-to-end, plus the admin dashboard powering operations.",
+    screenshots: [
+      "/projects/festive-express/screencapture-festive-express-monorepo-mu-vercel-app-2026-10-08-06_08_23.webp",
+      "/projects/festive-express/screencapture-festive-express-monorepo-mu-vercel-app-packages-2026-10-08-06_08_50.webp",
+      "/projects/festive-express/screencapture-festive-express-monorepo-mu-vercel-app-faq-2026-10-08-06_09_57.webp",
+      "/projects/festive-express/em30rbfis5pvctgzabfi.webp",
+      "/projects/festive-express/screencapture-admin-festive-express-admin-2026-10-08-06_10_59.webp",
+      "/projects/festive-express/screencapture-admin-festive-express-admin-products-2026-10-08-06_11_32.webp",
+      "/projects/festive-express/screencapture-admin-festive-express-admin-configuration-faq-2026-10-08-06_12_09.webp",
+    ],
+    highlights: [
+      "Content Management System (CMS)",
+      "Order Management & Automation",
+      "Responsive Marketing Storefront",
+      "Admin Dashboard",
+      "SEO & Performance Optimized",
+    ],
+    links: [
+      { name: "Website", url: "https://festive.express" },
+      {
+        name: "Staging",
+        url: "https://festive-express-monorepo-mu.vercel.app/",
+      },
+      { name: "Admin", url: "https://admin.festive.express" },
+    ],
+  },
+  {
     name: "Nextsys IT Solutions Website",
     description:
       "Created a web page for a start up company with futuristic styling and contact feature.",
@@ -223,10 +300,14 @@ export const projects: Project[] = [
   },
   {
     name: "Medieval Village Explorer",
-    description:
-      "This is my first portfolio ^_^ V",
-    screenshots: ["/projects/medieval/medieval.png",], // Add screenshots if available
-    highlights: ["3D environment", "First-person controls", "Interactive NPCs", "Medieval Style Porfolio and Effects"],
+    description: "This is my first portfolio ^_^ V",
+    screenshots: ["/projects/medieval/medieval.png"], // Add screenshots if available
+    highlights: [
+      "3D environment",
+      "First-person controls",
+      "Interactive NPCs",
+      "Medieval Style Porfolio and Effects",
+    ],
     links: [
       { name: "Play Demo", url: "/medieval-style" },
       {

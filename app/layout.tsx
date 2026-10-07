@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins, Inter, Montserrat } from "next/font/google";
 import "@/styles/globals.css";
 import "@/styles/hero.css"
@@ -37,6 +37,13 @@ export const metadata: Metadata = {
     icon: "/icon.webp",
     apple: "/icon.webp",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#1c1917",
 };
 
 export default function RootLayout({

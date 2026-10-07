@@ -24,6 +24,23 @@ export const useHotZones = (
 ) => {
   const hotZones: HotZone[] = [
     {
+      id: "medieval",
+      name: "More of Me",
+      type: "polygon",
+      points: [
+        [0.95, 0.2],
+        [0.844, 0.06],
+        [0.741, 0.17],
+        [0.741, 0.474],
+        [0.95, 0.474],
+      ],
+      onClick: () =>
+        window.open(
+          "https://miko-recare-portfolio.vercel.app/medieval-style",
+          "_blank",
+        ),
+    },
+    {
       id: "switch",
       name: "Turn On/Off",
       type: "circle",
@@ -113,7 +130,7 @@ export const useHotZones = (
       type: "polygon",
       points: [
         [0.24, 0.782],
-        [0.30, 0.75],
+        [0.3, 0.75],
         [0.321, 0.77],
         [0.321, 0.86],
         [0.26, 0.91],
